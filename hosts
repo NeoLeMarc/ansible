@@ -1,3 +1,7 @@
+[debian:children]
+projects
+services
+
 [projects]
 projects.yorktown.xcore.net
 
@@ -9,3 +13,14 @@ jabber.services.xcore.net
 timeserver.services.xcore.net
 nameserver.services.xcore.net
 phpserver.services.xcore.net
+
+[rhel:children]
+weblogic
+oracle
+
+[weblogic]
+weblogic01.saratoga.xcore.net
+weblogic02.saratoga.xcore.net
+
+[oracle]
+oracle.saratoga.xcore.net
