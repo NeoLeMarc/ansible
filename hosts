@@ -1,2 +1,11 @@
-10.16.1.11
+[projects]
 projects.yorktown.xcore.net
+
+[services]
+webserver.services.xcore.net
+atlassian.services.xcore.net
+vcs.services.xcore.net
+jabber.services.xcore.net
+timeserver.services.xcore.net
+nameserver.services.xcore.net
+phpserver.services.xcore.net
