@@ -5,7 +5,7 @@
     shell: tar -c /etc -f /etc.tar 
 
   - name: fetch etc.tar
-    fetch: src=etc.tar dest=~/infrastructure/{{ansible_hostname}}/etc-{{ ansible_hostname }}.tar flat=yes
+    fetch: src=/etc.tar dest=~/infrastructure/{{ansible_hostname}}/etc-{{ ansible_hostname }}.tar flat=yes
 
   - name: cleanup etc.tar
     file: path=/etc.tar state=absent 
