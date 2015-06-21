@@ -1,9 +1,26 @@
 [debian:children]
 projects
 services
+backupserver
+kuznetsov
+varyag
+noc
+ext-services
+
+[noc]
+noc.lan.garching.xcore.net
+
+[varyag]
+varyag.noetech.net
+
+[kuznetsov]
+kuznetsov.noetech.net
 
 [projects]
 projects.yorktown.xcore.net
+
+[backupserver]
+backupserver.xcore.net
 
 [services]
 webserver.services.xcore.net
@@ -13,6 +30,13 @@ jabber.services.xcore.net
 timeserver.services.xcore.net
 nameserver.services.xcore.net
 phpserver.services.xcore.net
+
+[ext-services]
+mx.saratoga.xcore.net
+archive.xcore.net
+gate.xcore.net
+gate2.xcore.net
+jumpgate.yorktown.xcore.net
 
 [rhel:children]
 weblogic
