@@ -1,29 +1,28 @@
 - hosts: atlassian.services.xcore.net
   remote_user: root
   tasks:
-#  - name: upload confluence binary
-#    copy: src=~/Downloads/atlassian-confluence-latest.bin dest=/root/atlassian-confluence-latest.bin
+  - name: upload confluence binary
+    copy: src=~/Downloads/atlassian-confluence-latest.bin dest=/root/atlassian-confluence-latest.bin
 
-#  - name: shut down confluence
-#    service: name=confluence state=stopped
-#
-#  - name: cleanup old installation directory
-#    command: rm -rf /opt/atlassian/confluence_old
-#
-#  - name: move old installation away
-#    command: mv /opt/atlassian/confluence /opt/atlassian/confluence_old
-#
-#  - name: perform unattended installation
-#    shell: sh /root/atlassian-confluence-latest.bin -q -varfile /opt/atlassian/confluence_old/.install4j/response.varfile
-#
-  - name: repair context path
-    replace: dest=/opt/atlassian/confluence/conf/server.xml regexp="Context path\=\"\"" replace="Context path=\"/confluence\"" backup=yes 
+  - name: shut down confluence
+    command: pkill -u confluence 
+    ignore_errors: yes
 
-#  - name: repair home directory
-#    replace: dest="/opt/atlassian/confluence/confluence/WEB-INF/classes/confluence-init.properties" regexp="confluence.home = /var/atlassian/application-data/confluence" replace="confluence.home = /srv/atlassian/application-data/confluence"
+  # Note: sys.confirmedUpdateInstallationString has to be true
+  # in order to perform upgrade
+  - name: perform unattended installation
+    shell: sh /root/atlassian-confluence-latest.bin -q -varfile /opt/atlassian/confluence_backup/.install4j/response.varfile
 
   - name: shut down confluence
     service: name=confluence state=stopped
 
-  - name: start confluence
-    service: name=confluence state=started
+  - name: repair context path
+    replace: dest=/opt/atlassian/confluence/conf/server.xml regexp="Context path\=\"\"" replace="Context path=\"/confluence\"" backup=yes 
+
+  - name: repair home directory
+    replace: dest="/opt/atlassian/confluence/confluence/WEB-INF/classes/confluence-init.properties" regexp="confluence.home = /var/atlassian/application-data/confluence" replace="confluence.home = /srv/atlassian/application-data/confluence"
+
+  - pause: minutes=2
+
+  - name: restart confluence
+    shell: /etc/init.d/confluence restart 
