@@ -1,0 +1,19 @@
+- hosts: atlassian.services.xcore.net
+  remote_user: root
+  su_user: crowd
+  su: yes
+  tasks:
+
+  - name: shut down crowd 
+    command: ./stop_crowd.sh chdir=/opt/atlassian/crowd
+    ignore_errors: yes 
+    environment: 
+      JAVA_HOME: /opt/atlassian/confluence/jre/ 
+
+  - pause: seconds=30
+
+  - name: start up crowd 
+    command: ./start_crowd.sh chdir=/opt/atlassian/crowd
+    ignore_errors: no
+    environment: 
+      JAVA_HOME: /opt/atlassian/confluence/jre/ 
