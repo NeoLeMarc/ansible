@@ -34,7 +34,7 @@ phpserver.services.xcore.net
 [ext-services]
 mx.saratoga.xcore.net
 archive.xcore.net
-gate.xcore.net
+gate.saratoga.xcore.net
 gate2.xcore.net
 jumpgate.yorktown.xcore.net
 
