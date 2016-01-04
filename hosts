@@ -11,8 +11,10 @@ cassandra
 [cassandra:children]
 disnode-a1
 disnode-a2
+disnode-a3
 disnode-b1
 disnode-b2
+disnode-b3
 
 [noc]
 noc.lan.garching.xcore.net
