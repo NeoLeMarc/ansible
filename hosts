@@ -6,6 +6,13 @@ kuznetsov
 varyag
 noc
 ext-services
+cassandra
+
+[cassandra:children]
+disnode-a1
+disnode-a2
+disnode-b1
+disnode-b2
 
 [noc]
 noc.lan.garching.xcore.net
@@ -48,3 +55,15 @@ weblogic02.saratoga.xcore.net
 
 [oracle]
 oracle.saratoga.xcore.net
+
+[disnode-a1]
+disnode-a1.saratoga.xcore.net
+
+[disnode-a2]
+disnode-a2.saratoga.xcore.net
+
+[disnode-b1]
+disnode-b1.yorktown.xcore.net
+
+[disnode-b2]
+disnode-b2.yorktown.xcore.net
