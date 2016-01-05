@@ -64,8 +64,14 @@ disnode-a1.saratoga.xcore.net
 [disnode-a2]
 disnode-a2.saratoga.xcore.net
 
+[disnode-a3]
+disnode-a3.saratoga.xcore.net
+
 [disnode-b1]
 disnode-b1.yorktown.xcore.net
 
 [disnode-b2]
 disnode-b2.yorktown.xcore.net
+
+[disnode-b3]
+disnode-b3.yorktown.xcore.net
