@@ -7,6 +7,7 @@ varyag
 noc
 ext-services
 cassandra
+ns2
 
 [cassandra:children]
 disnode-a1
@@ -75,3 +76,6 @@ disnode-b2.yorktown.xcore.net
 
 [disnode-b3]
 disnode-b3.yorktown.xcore.net
+
+[ns2]
+ns2.noetech.net
