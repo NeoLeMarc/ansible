@@ -4,6 +4,7 @@ services
 backupserver
 kuznetsov
 varyag
+phantom
 noc
 ext-services
 cassandra
@@ -25,6 +26,9 @@ varyag.noetech.net
 
 [kuznetsov]
 kuznetsov.noetech.net
+
+[phantom]
+phantom.noetech.net
 
 [projects]
 projects.yorktown.xcore.net
