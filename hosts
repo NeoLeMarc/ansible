@@ -1,7 +1,6 @@
 [debian:children]
 services
 backupserver
-kuznetsov
 phantom
 noc
 ext-services
@@ -9,9 +8,6 @@ ns2
 
 [noc]
 noc.lan.garching.xcore.net
-
-[kuznetsov]
-kuznetsov.noetech.net
 
 [phantom]
 phantom.noetech.net
