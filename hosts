@@ -23,11 +23,12 @@ jabber.services.xcore.net
 timeserver.services.xcore.net
 nameserver.services.xcore.net
 phpserver.services.xcore.net
+ftp.services.xcore.net
 
 [ext-services]
 mx.saratoga.xcore.net
 archive.xcore.net
-gate.saratoga.xcore.net
+gate.saratoga.xcore.net:122
 gate2.xcore.net
 jumpgate.yorktown.xcore.net
 
