@@ -18,6 +18,7 @@ mx.services.ka.xcore.net
 vcs.services.ka.xcore.net
 nameserver.services.ka.xcore.net
 vpn.services.ka.xcore.net
+monitoring.services.ka.xcore.net
 
 [ns2]
 ns2.noetech.net
