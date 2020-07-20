@@ -3,6 +3,7 @@ services
 backup-services
 galaxy
 ns2
+jupiter
 
 [backup-services]
 control-backup.lan.ka.xcore.net
@@ -25,3 +26,6 @@ ns2.noetech.net
 
 [galaxy]
 galaxy.lan.ka.xcore.net
+
+[jupiter]
+jupiter.lan.ka.xcore.net
