@@ -1,0 +1,76 @@
+- hosts: kubernetes
+  remote_user: root 
+  roles:
+   - role: jnv.unattended-upgrades
+     unattended_origins_patterns:
+     - 'origin=Debian,codename=${distro_codename},label=Debian-Security' # security updates
+     - 'o=Debian,codename=${distro_codename},label=Debian' # updates including non-security updates
+     - 'o=Debian,codename=${distro_codename},a=proposed-updates'
+     #    unattended_package_blacklist: [cowsay, vim]
+     unattended_mail: 'root@xcore.nexcore.net'
+   - role: MichaelRigart.aliases
+     aliases_list:
+         - user: marcel
+           alias: marcel@marcel-noe.de
+         - user: root
+           alias: marcel
+         - user: postmaster
+           alias: root
+  tasks:
+      - name: install packages 
+        apt:
+            pkg:
+            - vim
+            - unattended-upgrades
+            - chrony
+            - mailutils
+            - logwatch
+            - postfix
+            update_cache: yes
+
+      - name: upgrade all packages
+        apt: upgrade=dist
+
+      - name: Set up Postfix to relay mail
+        debconf: name=postfix
+                 question='{{ item.question }}'
+                 value='{{ item.value }}'
+                 vtype='{{ item.vtype }}'
+        with_items:
+            - { question: 'postfix/mailname', value: '{{ ansible_fqdn }}', vtype: 'string' }
+            - { question: 'postfix/main_mailer_type', value: 'Sattelite system', vtype: 'string' }
+            - { question: 'postfix/relayhost', value: 'mx.services.ka.xcore.net', vtype: 'string' }
+            - { question: 'postfix/root_address', value: 'marcel', vtype: 'string'}
+        notify: Reconfigure postfix
+
+      - name: Disallow password authentication
+        lineinfile: dest=/etc/ssh/sshd_config
+                    regexp="^PasswordAuthentication"
+                    line="PasswordAuthentication no"
+                    state=present
+        notify: Restart ssh
+
+      - name: Disallow root SSH acces without keys
+        lineinfile: dest=/etc/ssh/sshd_config
+                    regexp="^PermitRootLogin"
+                    line="PermitRootLogin without-password"
+                    state=present
+        notify: Restart ssh 
+
+      - name: Only allow root from internal networks
+        lineinfile: dest=/etc/ssh/sshd_config
+                    regexp="^AllowUsers"
+                    line="AllowUsers root@10.10.* marcel@10.10.*"
+                    state=present
+        notify: Restart ssh 
+
+  handlers:
+  - name: Restart ssh
+    service: name=ssh state=restarted
+
+  - name: Reconfigure postfix
+    command: dpkg-reconfigure -f noninteractive postfix 
+    notify: Restart postfix
+
+  - name: Restart postfix 
+    service: name=postfix state=restarted
