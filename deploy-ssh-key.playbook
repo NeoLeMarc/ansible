@@ -1,0 +1,16 @@
+- hosts: kubernetes
+  remote_user: marcel 
+  become: yes
+  become_user: root
+  become_method: su
+  tasks:
+      - name: create ssh directory
+        file:
+            path=/root/.ssh
+            state=directory
+            mode=0700
+            owner=root
+            group=root
+
+      - name: upload ssh pubkey 
+        copy: src=~/.ssh/authorized_keys dest=/root/.ssh/authorized_keys
