@@ -1,8 +1,19 @@
 [debian:children]
 services
+kubernetes
 backup-services
 galaxy
 ns2
+jupiter
+
+[kubernetes]
+kubemaster01.kubernetes.ka.xcore.net
+kubeworker01.kubernetes.ka.xcore.net
+kubeworker02.kubernetes.ka.xcore.net
+
+[galaxy-vms:children]
+kubernetes
+services
 jupiter
 
 [backup-services]
