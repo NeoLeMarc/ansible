@@ -1,3 +1,4 @@
+# vim: expandtab : filetype=yaml : nospell : ai : sw=2 : ts=2:
 - hosts: kubernetes
   remote_user: root 
   roles:
@@ -26,6 +27,7 @@
             - mailutils
             - logwatch
             - postfix
+            - prometheus-node-exporter
             update_cache: yes
 
       - name: upgrade all packages
