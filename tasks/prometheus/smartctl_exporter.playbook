@@ -3,6 +3,6 @@
   tasks:
   - name: fetch most recent version of smartctl exporter from github
     git: 
-      repo: https://github.com/cloudandheat/prometheus_smart_exporter
-      dest: /opt/prometheus_smart_exporter
+      repo: https://github.com/Sheridan/smartctl_exporter
+      dest: /opt/prometheus_smartctl_exporter
       update: yes
