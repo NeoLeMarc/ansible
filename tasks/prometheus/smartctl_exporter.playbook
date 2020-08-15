@@ -1,8 +1,39 @@
 - hosts: galaxy.lan.ka.xcore.net
   remote_user: root
+  roles:
+  - fubarhouse.golang
+  vars:    
+    go_get:
+      - name: smartctl_exporter
+        url: github.com/Sheridan/smartctl_exporter
+  
   tasks:
-  - name: fetch most recent version of smartctl exporter from github
-    git: 
-      repo: https://github.com/Sheridan/smartctl_exporter
-      dest: /opt/prometheus_smartctl_exporter
-      update: yes
+  - name: create prometheus_smartctl_exporter config file
+    copy: 
+      dest: /etc/smartctl_exporter.yaml
+      owner: root
+      group: root
+      mode: '0644'
+      content: |
+        smartctl_exporter:
+          bind_to: ":9633"
+          url_path: "/metrics"
+          fake_json: no
+          smartctl_location: /usr/sbin/smartctl
+          collect_not_more_than_period: 120s
+          devices:
+          - /dev/sda
+          - /dev/sdb
+          - /dev/sdc
+          - /dev/sdd
+          - /dev/nvme0n1p1
+          - /dev/nvme1n1p1
+          - /dev/nvme2n1p1
+          - /dev/nvme3n1p1
+
+  - name: copy smartctl_exporter to /usr/local/sbin
+    copy:
+      dest: /usr/local/sbin/smartctl_exporter
+      remote_src: yes
+      src: /root/go/bin/smartctl_exporter
+      mode: '0755'
