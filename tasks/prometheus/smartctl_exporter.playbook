@@ -1,0 +1,8 @@
+- hosts: galaxy.lan.ka.xcore.net
+  remote_user: root
+  tasks:
+  - name: fetch most recent version of smartctl exporter from github
+    git: 
+      repo: https://github.com/cloudandheat/prometheus_smart_exporter
+      dest: /opt/prometheus_smart_exporter
+      update: yes
