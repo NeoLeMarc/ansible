@@ -16,7 +16,7 @@
       mode: '0644'
       content: |
         smartctl_exporter:
-          bind_to: ":9633"
+          bind_to: ":9101"
           url_path: "/metrics"
           fake_json: no
           smartctl_location: /usr/sbin/smartctl
@@ -30,6 +30,8 @@
           - /dev/nvme1n1p1
           - /dev/nvme2n1p1
           - /dev/nvme3n1p1
+    notify: 
+      - restart smartctl_exporter
 
   - name: copy smartctl_exporter to /usr/local/sbin
     copy:
@@ -37,3 +39,42 @@
       remote_src: yes
       src: /root/go/bin/smartctl_exporter
       mode: '0755'
+
+  - name: create systemd unit
+    copy:
+      dest: /etc/systemd/system/smartctl_exporter.service
+      owner: root
+      group: root
+      mode: '0644'
+      content: |
+        [Unit]
+        Description=smartctl exporter service
+        After=network-online.target
+        
+        [Service]
+        Type=simple
+        PIDFile=/run/smartctl_exporter.pid
+        ExecStart=/usr/local/sbin/smartctl_exporter
+        User=root
+        Group=root
+        SyslogIdentifier=smartctl_exporter
+        Restart=on-failure
+        RemainAfterExit=no
+        RestartSec=100ms
+        StandardOutput=journal
+        StandardError=journal
+        
+        [Install]
+        WantedBy=multi-user.target 
+
+  - name: Start smartctl_exporter
+    systemd:
+      name: smartctl_exporter
+      state: started
+      enabled: yes
+
+  handlers:
+  - name: restart smartctl_exporter
+    service:
+      name: smartctl_exporter
+      state: restarted
