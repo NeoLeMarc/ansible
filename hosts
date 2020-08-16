@@ -6,8 +6,14 @@ galaxy
 ns2
 jupiter
 
-[kubernetes]
+[kubernetes:children]
+kubernetes_master
+kubernetes_worker
+
+[kubernetes_master]
 kubemaster01.kubernetes.ka.xcore.net
+
+[kubernetes_worker]
 kubeworker01.kubernetes.ka.xcore.net
 kubeworker02.kubernetes.ka.xcore.net
 
@@ -40,3 +46,9 @@ galaxy.lan.ka.xcore.net
 
 [jupiter]
 jupiter.lan.ka.xcore.net
+
+[py3-hosts]
+galaxy.lan.ka.xcore.net
+
+[py3-hosts:vars]
+ansible_python_interpreter=/usr/bin/python3
