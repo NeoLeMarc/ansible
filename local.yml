@@ -5,4 +5,4 @@
         apt: 
           pkg:
               - vim
-          update_cache: update
+          update_cache: yes 
