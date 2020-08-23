@@ -1,8 +1,9 @@
 ---
 - hosts: workstations 
   tasks:
-      - name: apt-update and install vim
+      - name: apt-update and install basic software 
         apt: 
           pkg:
               - vim
+              - zsh
           update_cache: yes 
