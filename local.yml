@@ -2,6 +2,6 @@
 - hosts: all
   tasks:
       - name: Create hello world file
-      copy: 
-        content: hello world
-        dest: /tmp/testfile.txt
+        copy: 
+          content: hello world
+          dest: /tmp/testfile.txt
