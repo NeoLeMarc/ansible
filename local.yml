@@ -1,7 +1,8 @@
 ---
-- hosts: all
+- hosts: workstations 
   tasks:
-      - name: Create hello world file
-        copy: 
-          content: hello world
-          dest: /tmp/testfile.txt
+      - name: apt-update and install vim
+        apt: 
+          pkg:
+              - vim
+          update_cache: update
