@@ -14,7 +14,7 @@
       - name: add ansible pull cronjob
         cron:
           name: "ansible pull"
-          minute: "0/15"
+          minute: "*/15"
           hour: "*"
           job: "ansible-pull -U https://citadel.noetech.net/stash/scm/an/ansible.git -i hosts"
           cron_file: ansible_pull
