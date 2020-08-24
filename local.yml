@@ -90,6 +90,5 @@
             state: link
 
       - name: apply basic_server role
-        include_role:
+        import_role:
           name: basic_server
-          private: yes
