@@ -18,3 +18,11 @@
         git: repo=https://github.com/ohmyzsh/ohmyzsh.git version=master dest=/home/marcel/.oh-my-zsh
         become: yes
         become_user: marcel
+
+      - name: link zshrc for marcel
+        file:
+            src: /home/marcel/config-files/zshrc
+            dest: /home/marcel/.zshrc
+            owner: marcel
+            group: marcel
+            state: link
