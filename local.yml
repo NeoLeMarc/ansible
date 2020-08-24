@@ -88,3 +88,7 @@
             owner: marcel
             group: marcel
             state: link
+
+      - name: apply basic_server role
+        include_role:
+          name: basic_server
