@@ -16,7 +16,7 @@
           name: "ansible pull"
           minute: "*/15"
           hour: "*"
-          job: "ansible-pull -U https://citadel.noetech.net/stash/scm/an/ansible.git -i hosts"
+          job: "ansible-pull -U https://citadel.noetech.net/stash/scm/an/ansible.git -i hosts > /dev/null"
           cron_file: ansible_pull
           user: root
 
