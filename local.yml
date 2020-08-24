@@ -10,6 +10,20 @@
               - birthday
           update_cache: yes 
 
+      - name: add ansible pull cronjob
+        cron:
+          name: "ansible pull"
+          minute: "0/15"
+          hour: "*"
+          job: "ansible-pull -U https://citadel.noetech.net/stash/scm/an/ansible.git -i hosts_pull"
+          cron_file: ansible_pull
+
+      - name: add mailto to cron variables for ansible pull
+        cronvar:
+          name: MAILTO
+          value: marcel@marcel-noe.de
+          cron_file: ansible_pull
+
       - name: clone config files
         git: repo=https://citadel.noetech.net/stash/scm/an/config-files.git version=master dest=/home/marcel/config-files
         become: yes
