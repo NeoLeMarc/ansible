@@ -28,6 +28,22 @@
             group: marcel
             state: link
 
+      - name: link vimrc for marcel
+        file:
+            src: /home/marcel/config-files/vimrc
+            dest: /home/marcel/.vimrc
+            owner: marcel
+            group: marcel
+            state: link
+
+      - name: link exrc for marcel
+        file:
+            src: /home/marcel/config-files/exrc
+            dest: /home/marcel/.exrc
+            owner: marcel
+            group: marcel
+            state: link
+
       - name: change default shell of user marcel to zsh
         user:
             name: marcel
