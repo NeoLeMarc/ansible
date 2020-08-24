@@ -48,4 +48,20 @@
         - kubectl
         update_cache: yes
 
+    - name: remove swap from fstab 
+      mount:
+        name: "{{ item }}"
+        fstype: swap
+        state: absent
+     with_items:
+       - swap
+       - none
+
+    - name: Disable swap
+      command: swapoff -a
+      when: ansible_swaptotal_mb > 0 
+
+
+
+
 
