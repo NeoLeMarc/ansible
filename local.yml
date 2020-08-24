@@ -36,7 +36,7 @@
             shell: /usr/bin/zsh
 
       - name: add authorized keys
-        authozied_key:
+        authorized_key:
             user: marcel
             state: present
             key: "{{ lookup('file', '/home/marcel/config-files/authorized_keys') }}"
