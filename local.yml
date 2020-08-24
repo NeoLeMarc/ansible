@@ -72,4 +72,14 @@
             user: marcel
             state: present
             key: "{{ lookup('file', '/home/marcel/config-files/authorized_keys') }}"
+      - name: Download required roles
+        git: repo=https://citadel.noetech.net/stash/scm/an/ansible-collection-xcore.git version=master dest=/opt/ansible/ansible-collection-xcore
 
+      - name: link roles
+        file:
+            src: /opt/ansible/ansible-collection-xcore/roles/basic-server
+
+            dest: /etc/ansible/roles/basic-server
+            owner: marcel
+            group: marcel
+            state: link

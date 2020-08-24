@@ -1,0 +1,5 @@
+--
+collections:
+  - neolemarc.xcore
+    src: http://citadel.noetech.net/stash/scm/an/ansible-collection-xcore.git
+    scm: git
