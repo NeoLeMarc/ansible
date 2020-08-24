@@ -75,6 +75,11 @@
       - name: Download required roles
         git: repo=https://citadel.noetech.net/stash/scm/an/ansible-collection-xcore.git version=master dest=/opt/ansible/ansible-collection-xcore
 
+      - name: roles directory
+        file:
+            dest: /etc/ansible/roles
+            state: directory 
+
       - name: link roles
         file:
             src: /opt/ansible/ansible-collection-xcore/roles/basic-server
