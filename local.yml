@@ -1,5 +1,5 @@
 ---
-- hosts: workstations 
+- hosts: super-workstations
   tasks:
       - name: apt-update and install basic software 
         apt: 
@@ -95,3 +95,5 @@
       - name: apply basic-server role
         include_role:
           name: basic-server
+
+
