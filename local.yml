@@ -90,5 +90,5 @@
             state: link
 
       - name: apply basic_server role
-        import_role:
+        include_role:
           name: basic_server
