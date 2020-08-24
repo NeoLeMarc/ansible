@@ -1,5 +1,5 @@
 ---
-- hosts: super-workstations
+- hosts: workstations
   tasks:
       - name: apt-update and install basic software 
         apt: 
