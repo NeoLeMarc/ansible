@@ -89,6 +89,6 @@
             group: marcel
             state: link
 
-      - name: apply basic_server role
+      - name: apply basic-server role
         include_role:
-          name: basic_server
+          name: basic-server
