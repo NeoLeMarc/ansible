@@ -8,6 +8,7 @@
               - zsh
               - sudo
               - birthday
+              - nmap
           update_cache: yes 
 
       - name: add ansible pull cronjob
