@@ -8,8 +8,8 @@
               - zsh
           update_cache: yes 
 
-        - name: clone config files
-          git: repo=https://citadel.noetech.net/stash/scm/an/config-files.git version=master dest=/home/marcel/config-files
-          become: yes
-          become_user: marcel
+      - name: clone config files
+        git: repo=https://citadel.noetech.net/stash/scm/an/config-files.git version=master dest=/home/marcel/config-files
+        become: yes
+        become_user: marcel
 
