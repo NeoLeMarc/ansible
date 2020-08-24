@@ -1,0 +1,60 @@
+---
+- hosts: workstations 
+  tasks:
+      - name: apt-update and install basic software 
+        apt: 
+          pkg:
+              - vim
+              - zsh
+              - sudo
+              - birthday
+          update_cache: yes 
+
+      - name: clone config files
+        git: repo=https://citadel.noetech.net/stash/scm/an/config-files.git version=master dest=/home/marcel/config-files
+        become: yes
+        become_user: marcel
+
+      - name: get latest version of oh-my-zsh
+        git: repo=https://github.com/ohmyzsh/ohmyzsh.git version=master dest=/home/marcel/.oh-my-zsh
+        become: yes
+        become_user: marcel
+
+      - name: link zshrc for marcel
+        file:
+            src: /home/marcel/config-files/zshrc
+            dest: /home/marcel/.zshrc
+            owner: marcel
+            group: marcel
+            state: link
+
+      - name: link vimrc for marcel
+        file:
+            src: /home/marcel/config-files/vimrc
+            dest: /home/marcel/.vimrc
+            owner: marcel
+            group: marcel
+            state: link
+
+      - name: link exrc for marcel
+        file:
+            src: /home/marcel/config-files/exrc
+            dest: /home/marcel/.exrc
+            owner: marcel
+            group: marcel
+            state: link
+
+      - name: change default shell of user marcel to zsh
+        user:
+            name: marcel
+            comment: Marcel Noe
+            groups: sudo
+            append: yes
+            shell: /usr/bin/zsh
+
+      - name: add authorized keys
+        authorized_key:
+            user: marcel
+            state: present
+            key: "{{ lookup('file', '/home/marcel/config-files/authorized_keys') }}"
+

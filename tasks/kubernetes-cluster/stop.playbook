@@ -1,0 +1,11 @@
+- hosts: galaxy
+  remote_user: root
+  tasks:
+      - name: Start kubernetes nodes
+        virt:
+            name: "{{ item }}"
+            state: stopped 
+        with_items:
+                - kubemaster01
+                - kubeworker01
+                - kubeworker02

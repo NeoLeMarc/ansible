@@ -46,3 +46,12 @@ galaxy.lan.ka.xcore.net
 
 [jupiter]
 jupiter.lan.ka.xcore.net
+
+[py3-hosts]
+galaxy.lan.ka.xcore.net
+
+[py3-hosts:vars]
+ansible_python_interpreter=/usr/bin/python3
+
+[workstations]
+ansible-test.lan.ka.xcore.net
