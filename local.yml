@@ -6,6 +6,7 @@
           pkg:
               - vim
               - zsh
+              - sudo
           update_cache: yes 
 
       - name: clone config files
