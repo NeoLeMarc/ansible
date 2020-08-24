@@ -26,6 +26,12 @@
           value: marcel@marcel-noe.de
           cron_file: ansible_pull
 
+      - name: set path cron variables for ansible pull
+        cronvar:
+          name: PATH 
+          value: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+          cron_file: ansible_pull
+
       - name: clone config files
         git: repo=https://citadel.noetech.net/stash/scm/an/config-files.git version=master dest=/home/marcel/config-files
         become: yes
