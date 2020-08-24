@@ -14,3 +14,7 @@
         become: yes
         become_user: marcel
 
+      - name: get latest version of oh-my-zsh
+        git: repo=https://github.com/ohmyzsh/ohmyzsh.git version=master dest=/home/marcel/.oh-my-zsh
+        become: yes
+        becomre_user: marcel
