@@ -82,6 +82,10 @@
      notify: Restart kubelet
      when: not stat_kubelet_config.stat.exists
 
+   - name: Initialize the Kubernetes cluster using kubeadm
+     command: kubeadm init --apiserver-advertise-address\=\"{{ node_ip }}\" --apiserver-cert-extra-sans\=\"{{ node_ip }}\" --node-name {{ inventory_hostname_short }} --pod-network-cidr\=10.12.0.0/16
+     when: inventory_hostname in groups['kubernetes_master']
+
   handlers:
     - name: Restart kubelet
       service:
