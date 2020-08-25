@@ -17,7 +17,7 @@ kubemaster01
 kubemaster01.kubernetes.ka.xcore.net
 
 [kubemaster01:vars]
-node_ip="10.10.33.14"
+node_ip="10.10.33.1"
 
 [kubernetes_worker:children]
 kubeworker01
