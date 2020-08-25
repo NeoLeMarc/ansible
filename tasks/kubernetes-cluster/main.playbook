@@ -62,11 +62,25 @@
      command: swapoff -a
      when: ansible_swaptotal_mb > 0 
 
-   - name: Configure node ip
+   - name: does kubelet config exist?
+     stat:
+       path: /etc/default/kubelet
+     register: stat_kubelet_config
+
+   - name: Configure node ip in kubelet cfg if file exists
      lineinfile:
        path: /etc/default/kubelet
        line: KUBELET_EXTRA_ARGS\=--node-ip={{ node_ip }}
      notify: Restart kubelet
+     when: stat_kubelet_config.stat.exists
+
+   - name: Create file otherwise
+     copy: 
+        dest: /etc/default/kubelet
+        content: KUBELET_EXTRA_ARGS\=--node-ip={{ node_ip }}
+        mode: 644
+     notify: Restart kubelet
+     when: not stat_kubelet_config.stat.exists
 
   handlers:
     - name: Restart kubelet
