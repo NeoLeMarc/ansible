@@ -10,12 +10,30 @@ jupiter
 kubernetes_master
 kubernetes_worker
 
-[kubernetes_master]
+[kubernetes_master:children]
+kubemaster01
+
+[kubemaster01]
 kubemaster01.kubernetes.ka.xcore.net
 
-[kubernetes_worker]
+[kubemaster01:vars]
+node_ip="10.10.33.14"
+
+[kubernetes_worker:children]
+kubeworker01
+kubeworker02
+
+[kubeworker01]
 kubeworker01.kubernetes.ka.xcore.net
+
+[kubeworker01:vars]
+node_ip="10.10.33.11"
+
+[kubeworker02]
 kubeworker02.kubernetes.ka.xcore.net
+
+[kubeworker02:vars]
+node_ip="10.10.33.12"
 
 [galaxy_vms:children]
 kubernetes
