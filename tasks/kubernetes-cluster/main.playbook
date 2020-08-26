@@ -125,6 +125,32 @@
      command: kubectl create -f https://docs.projectcalico.org/manifests/calico.yaml 
      when: inventory_hostname in groups["kubernetes_master"] and cni_install_status.rc > 0
 
+   - name: Generate join command
+     command: kubeadm token create --print-join-command
+     register: join_command
+     when: inventory_hostname in groups["kubernetes_master"]
+
+   - name: Copy join command to local file
+     local_action: copy content="{{ join_command.stdout_lines[0] }}" dest="./join-command"
+     when: inventory_hostname in groups["kubernetes_master"]
+
+   - name: copy join command to worker nodes
+     copy: src=join-command dest=/tmp/join-command.sh mode=0777
+     when: inventory_hostname in groups["kubernetes_worker"]
+
+   - name: Join
+     command: sh /tmp/join-command.sh
+     when: inventory_hostname in groups["kubernetes_worker"]
+
+   - name: Setup kubeconfig for marcel user on workers
+     command: "{{ item }}"
+     with_items:
+       - mkdir -p /home/marcel/.kube
+       - cp /etc/kubernetes/admin.conf /home/marcel/.kube/config
+       - chown -R marcel:marcel /home/marcel/.kube
+     when: inventory_hostname in groups["kubernetes_worker"] and not stat_kubernetes_admin_config.stat.exists
+
+
 
   handlers:
     - name: Restart kubelet
