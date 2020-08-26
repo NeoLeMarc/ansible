@@ -3,7 +3,8 @@
 - hosts: kubernetes
   remote_user: root 
   roles:
-   - role: basic-server
+   - basic-server
+   - unixuser
   tasks:
    - name: prerequisites for apt over https
      apt:
