@@ -6,6 +6,11 @@
    - basic-server
    - unixuser
   tasks:
+   - name: remove password requirements for sudo on user marcel
+     lineinfile:
+       path: /etc/sudoers
+       line: marcel   ALL=(ALL:ALL) NOPASSWD: ALL 
+
    - name: prerequisites for apt over https
      apt:
        pkg:
