@@ -105,6 +105,21 @@
        - chown -R marcel:marcel /home/marcel/.kube
      when: inventory_hostname in groups["kubernetes_master"] and not stat_kubernetes_admin_config.stat.exists
 
+   - name: has CNI already be installed?
+     become: true
+     become_user: marcel
+     shell: kubectl get pods -n kube-system | grep calico 
+     register: cni_install_status
+     when: inventory_hostname in groups["kubernetes_master"]
+     ignore_errors: yes
+
+   - name: Install calico pod network
+     become: true
+     become_user: marcel
+     command: kubectl create -f https://docs.projectcalico.org/manifests/calico.yaml 
+     when: inventory_hostname in groups["kubernetes_master"] and cni_install_status.rc > 0
+
+
   handlers:
     - name: Restart kubelet
       service:
