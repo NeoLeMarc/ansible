@@ -92,13 +92,18 @@
      when: inventory_hostname in groups['kubernetes_master'] and
            not stat_kubernetes_apiserver_config.stat.exists
 
+   - name: does kubernetes admin config exist for user marcel?
+     stat:
+       path: /home/marcel/.kube/config
+     register: stat_kubernetes_admin_config
+
    - name: Setup kubeconfig for marcel user
      command: "{{ item }}"
      with_items:
        - mkdir -p /home/marcel/.kube
-       - cp -i /etc/kubernetes/admin.conf /home/marcel/.kube/config
+       - cp /etc/kubernetes/admin.conf /home/marcel/.kube/config
        - chown -R marcel:marcel /home/marcel/.kube
-     when: inventory_hostname in groups["kubernetes_master"]
+     when: inventory_hostname in groups["kubernetes_master"] and not stat_kubernetes_admin_config.stat.exists
 
   handlers:
     - name: Restart kubelet
