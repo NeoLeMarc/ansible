@@ -11,7 +11,7 @@
         pause:
             seconds: 90
 
-      - name: Start kubernetes nodes
+      - name: Stop kubernetes nodes
         virt:
             name: "{{ item }}"
             state: shutdown 
