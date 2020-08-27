@@ -138,24 +138,43 @@
      copy: src=join-command dest=/tmp/join-command.sh mode=0777
      when: inventory_hostname in groups["kubernetes_worker"]
 
-   - name: Setup kubeconfig for marcel user on workers
-     command: "{{ item }}"
-     with_items:
-       - mkdir -p /home/marcel/.kube
-       - cp /etc/kubernetes/admin.conf /home/marcel/.kube/config
-       - chown -R marcel:marcel /home/marcel/.kube
-     when: inventory_hostname in groups["kubernetes_worker"] and not stat_kubernetes_admin_config.stat.exists
-
-   - name: change cgroups driver to systemd
+   - name: change cgroups driver to systemd - remove old line
      lineinfile:
        path: /etc/containerd/config.toml
        line: "plugins.cri.systemd_cgroup = true"
+       state: absent
      notify: Restart containerd
+
+   - name: change cgroups driver to systemd - add new lines 1
+     lineinfile:
+       path: /etc/containerd/config.toml
+       line: "[plugins.\"io.containerd.grpc.v1.cri\".containerd.runtimes.runc.options]"
+       state: present 
+     notify: Restart containerd
+
+   - name: change cgroups driver to systemd - add new lines 2
+     lineinfile:
+       path: /etc/containerd/config.toml
+       line: "SystemdCgroup = true"
+       state: present 
+       insertafter: "[plugins.\"io.containerd.grpc.v1.cri\".containerd.runtimes.runc.options]"
+     notify: Restart containerd
+
+
+   - name: ensure docker is running
+     service: 
+        name: docker.service
+        enabled: yes
+        state: started
+
+   - name: does kubernetes kubelet config exist?
+     stat:
+       path: /etc/kubernetes/kubelet.conf
+     register: stat_kubernetes_kubelet_config
 
    - name: Join
      command: sh /tmp/join-command.sh
-     when: inventory_hostname in groups["kubernetes_worker"]
-
+     when: inventory_hostname in groups["kubernetes_worker"] and not stat_kubernetes_kubelet_config.stat.exists
 
   handlers:
    - name: Restart kubelet
