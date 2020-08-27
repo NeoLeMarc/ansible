@@ -138,10 +138,6 @@
      copy: src=join-command dest=/tmp/join-command.sh mode=0777
      when: inventory_hostname in groups["kubernetes_worker"]
 
-   - name: Join
-     command: sh /tmp/join-command.sh
-     when: inventory_hostname in groups["kubernetes_worker"]
-
    - name: Setup kubeconfig for marcel user on workers
      command: "{{ item }}"
      with_items:
@@ -150,11 +146,26 @@
        - chown -R marcel:marcel /home/marcel/.kube
      when: inventory_hostname in groups["kubernetes_worker"] and not stat_kubernetes_admin_config.stat.exists
 
+   - name: change cgroups driver to systemd
+     lineinfile:
+       path: /etc/containerd/config.toml
+       line: "plugins.cri.systemd_cgroup = true"
+     notify: Restart containerd
+
+   - name: Join
+     command: sh /tmp/join-command.sh
+     when: inventory_hostname in groups["kubernetes_worker"]
 
 
   handlers:
-    - name: Restart kubelet
-      service:
-          name: kubelet
+   - name: Restart kubelet
+     service:
+         name: kubelet
+         daemon_reload: yes
+         state: restarted
+
+   - name: Restart containerd
+     service:
+          name: containerd
           daemon_reload: yes
           state: restarted
