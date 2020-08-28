@@ -3,8 +3,14 @@
 - hosts: kubernetes
   remote_user: root 
   roles:
-   - basic-server
-   - unixuser
+    - role: basic-server
+      ssh_allow_users: "AllowUsers root@10.10.* marcel@10.10.* deploy@10.10.*"
+    - role: unixuser
+      unix_username: marcel
+      unix_user_gecos: Marcel Noe
+    - role: unixuser
+      unix_username: deploy
+      unix_user_gecos: Deploy User
   tasks:
    - name: remove password requirements for sudo on user marcel
      lineinfile:
