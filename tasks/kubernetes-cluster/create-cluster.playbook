@@ -3,6 +3,7 @@
 - hosts: kubernetes
   remote_user: root 
   roles:
+    - role: postfix-sattelite
     - role: basic-server
       ssh_allow_users: "AllowUsers root@10.10.* marcel@10.10.* deploy@10.10.*"
     - role: unixuser
