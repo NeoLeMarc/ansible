@@ -8,6 +8,7 @@
                 - curl
                 - lynx
                 - w3m
+                - redshift-gtk
             state: present
 
             
