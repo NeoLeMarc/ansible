@@ -74,3 +74,5 @@ ansible_python_interpreter=/usr/bin/python3
 [workstations]
 ansible-test.lan.ka.xcore.net
 jupiter
+nova
+normandy
