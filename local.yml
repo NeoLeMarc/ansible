@@ -86,4 +86,4 @@
         include_role:
           name: unixuser
 
-      - import_playbok: tasks/intellij/install-idea.playbook
+- import_playbok: tasks/intellij/install-idea.playbook
