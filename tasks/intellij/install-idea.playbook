@@ -1,0 +1,9 @@
+- hosts: workstations
+  roles:
+    - role: tecris.maven
+      maven_major: 3
+      maven_version: 3.6.3
+      maven_home_parent_directory: /opt
+
+      #    - role: gantsign.intellij
+      # intellij_default

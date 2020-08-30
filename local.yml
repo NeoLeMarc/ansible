@@ -86,4 +86,5 @@
         include_role:
           name: unixuser
 
-
+      - name: install intellij
+        include_playbok: tasks/intellij/
