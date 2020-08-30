@@ -58,6 +58,9 @@
             state: link
 
       - name: install dependencies
+        local_action: command ansible-galaxy install -r requirements.yml
+
+      - name: install dependencies for xcore-collection
         local_action: command ansible-galaxy install -r /opt/ansible/ansible-collection-xcore/roles/basic-server/requirements.yml
 
       - name: apply postfix-sattelite role
