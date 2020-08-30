@@ -1,6 +1,6 @@
 # Needs to be executed after local.yml to ensure that all dependencies are installed
 ---
-- hosts: workstations
+- hosts: java-development 
   tasks:
 
 - name: install intellij
