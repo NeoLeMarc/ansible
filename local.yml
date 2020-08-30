@@ -1,3 +1,4 @@
+# Entrypoint for ansible-pull
 ---
 - hosts: workstations
   tasks:
