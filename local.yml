@@ -87,4 +87,4 @@
           name: unixuser
 
       - name: install intellij
-        include_playbok: tasks/intellij/
+        import_playbok: tasks/intellij/install-idea.playbook
