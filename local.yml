@@ -1,6 +1,17 @@
 ---
 - hosts: workstations
   tasks:
+      - name: additional required packages
+        apt:
+            pkg:
+                - redshift
+                - curl
+                - lynx
+                - w3m
+                - redshift-gtk
+            state: present
+
+            
       - name: add ansible pull cronjob
         cron:
           name: "ansible pull"
