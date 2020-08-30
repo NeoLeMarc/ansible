@@ -6,7 +6,7 @@
         apt:
           pkg:
             - openjdk-11-jdk
-        state: present
+          state: present
 
 - name: install intellij
   import_playbook: tasks/intellij/install-idea.playbook
