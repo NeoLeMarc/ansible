@@ -24,3 +24,9 @@
           intellij_default_inspection_profile: GantSign
           intellij_plugins:
             - CheckStyle-IDEA
+  tasks:
+    - name: change ownership to marcel
+      file: /opt
+      owner: marcel
+      recurse: yes
+
