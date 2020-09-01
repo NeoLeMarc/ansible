@@ -26,7 +26,7 @@
             - CheckStyle-IDEA
   tasks:
    - name: change ownership to marcel
-     path: /opt
-     owner: marcel
-     recurse: yes
-
+     file:
+       path: /opt
+       owner: marcel
+       recurse: yes
