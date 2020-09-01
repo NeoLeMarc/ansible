@@ -25,8 +25,8 @@
           intellij_plugins:
             - CheckStyle-IDEA
   tasks:
-    - name: change ownership to marcel
-      file: /opt
-      owner: marcel
-      recurse: yes
+   - name: change ownership to marcel
+     file: /opt
+     owner: marcel
+     recurse: yes
 
