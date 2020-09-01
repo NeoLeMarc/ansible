@@ -1,3 +1,4 @@
+# Entrypoint for ansible-pull
 ---
 - hosts: workstations
   tasks:
@@ -17,7 +18,7 @@
           name: "ansible pull"
           minute: "*/15"
           hour: "*"
-          job: "ansible-pull -U https://citadel.noetech.net/stash/scm/an/ansible.git -i hosts local.yml > /dev/null && ansible-pull -U https://citadel.noetech.net/stash/scm/an/ansible.git -i hosts local-playbooks.yml > /dev/null"
+          job: "ansible-pull  -U https://citadel.noetech.net/stash/scm/an/ansible.git -i hosts local.yml -o | grep 'Repository has not changed, quitting' > /dev/null || ansible-pull  -U https://citadel.noetech.net/stash/scm/an/ansible.git -i hosts local-playbooks.yml > /dev/null"
           cron_file: ansible_pull
           user: root
 
