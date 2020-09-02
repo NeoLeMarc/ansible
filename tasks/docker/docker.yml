@@ -1,4 +1,4 @@
-- hosts: jupiter.lan.ka.xcore.net
+- hosts: java-development 
   remote_user: root
 
   tasks:
