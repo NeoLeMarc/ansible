@@ -1,4 +1,4 @@
-- hosts: galaxy
+- hosts: galaxy.lan.ka.xcore.net
   remote_user: root
   tasks:
       - name: Start cassandra nodes
