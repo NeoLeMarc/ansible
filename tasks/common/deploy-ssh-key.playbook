@@ -1,4 +1,4 @@
-- hosts: kubernetes
+- hosts: cassandra 
   remote_user: marcel 
   become: yes
   become_user: root

@@ -11,9 +11,18 @@ cassandra
 kubernetes_master
 kubernetes_worker
 
-[cassandra]
+[cassandra:children]
+cassandra01
+cassandra02
+cassandra03
+
+[cassandra01]
 cassandra01.kubernetes.ka.xcore.net
+
+[cassandra02]
 cassandra02.kubernetes.ka.xcore.net
+
+[cassandra03]
 cassandra03.kubernetes.ka.xcore.net
 
 [cassandra_seed]
