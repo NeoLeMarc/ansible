@@ -1,0 +1,11 @@
+- hosts: galaxy
+  remote_user: root
+  tasks:
+      - name: Start cassandra nodes
+        virt:
+            name: "{{ item }}"
+            state: running
+        with_items:
+                - cassandra01 
+                - cassandra02 
+                - cassandra03

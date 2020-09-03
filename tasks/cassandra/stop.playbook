@@ -1,0 +1,21 @@
+- hosts: cassandra 
+  remote_user: root
+  tasks:
+      - name: Graceful shutdown
+        command: /sbin/shutdown -h 1
+
+- hosts: galaxy
+  remote_user: root
+  tasks:
+      - name: Wait 1 minute 30 seconds for shutdown
+        pause:
+            seconds: 90
+
+      - name: Stop cassandra nodes
+        virt:
+            name: "{{ item }}"
+            state: shutdown 
+        with_items:
+                - cassandra01 
+                - cassandra02
+                - cassandra03
