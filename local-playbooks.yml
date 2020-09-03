@@ -1,6 +1,6 @@
 # Needs to be executed after local.yml to ensure that all dependencies are installed
 ---
-- hosts: java-development 
+- hosts: java_development 
   tasks:
       - name: install java packages
         apt:
