@@ -1,4 +1,4 @@
-- hosts: java-development 
+- hosts: java_development 
   remote_user: root
 
   tasks:

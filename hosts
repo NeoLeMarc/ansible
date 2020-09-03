@@ -1,4 +1,4 @@
-[debian:children]
+[debian_servers:children]
 services
 kubernetes
 backup_services
@@ -65,10 +65,10 @@ galaxy.lan.ka.xcore.net
 [jupiter]
 jupiter.lan.ka.xcore.net
 
-[py3-hosts]
+[py3_hosts]
 galaxy.lan.ka.xcore.net
 
-[py3-hosts:vars]
+[py3_hosts:vars]
 ansible_python_interpreter=/usr/bin/python3
 
 [workstations]
@@ -78,7 +78,7 @@ nova
 normandy
 galaxy
 
-[java-development]
+[java_development]
 nova
 normandy
 jupiter
