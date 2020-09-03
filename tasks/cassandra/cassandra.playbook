@@ -21,4 +21,5 @@
 
    - name: install java package
      apt:
-       - openjdk-11-jdk
+       packages:
+        - openjdk-11-jdk
