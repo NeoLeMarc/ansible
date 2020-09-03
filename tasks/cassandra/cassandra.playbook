@@ -17,7 +17,9 @@
    - name: remove standard jdk
      apt:
        pkg:
-        - openjdk-11-jdk
+        - openjdk-11-jdk-headless
+        - openjdk-11-jre
+        - openjdk-11-jre-headless
        state: absent
 
    - name: add repo key for adoptopenjdk
@@ -42,7 +44,7 @@
      vars:
         cassandra_cluster_name: cluster01
         cassandra_keyspaces:
-          - ressource-server
+          - ressourceserver
         java_packages: adoptopenjdk-8-hotspot
         cassandra_dep_os_pkgs:
           - procps
