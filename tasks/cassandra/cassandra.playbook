@@ -1,0 +1,15 @@
+- hosts: cassandra
+  remote_user: root
+  roles:
+    - role: baseline
+    - role: postfix-sattelite
+    - role: basic-server
+    - role: unixuser
+      unix_username: marcel
+      unix:user_gecos: Marcel Noe
+
+  tasks:
+   - name: remove password requirements for sudo on user marcel
+     lineinfile:
+       path: /etc/sudoers
+       line: "marcel   ALL=(ALL:ALL) NOPASSWD: ALL"

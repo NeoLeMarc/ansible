@@ -5,10 +5,16 @@ backup_services
 galaxy
 ns2
 jupiter
+cassandra
 
 [kubernetes:children]
 kubernetes_master
 kubernetes_worker
+
+[cassandra]
+cassandra01.kubernetes.ka.xcore.net
+cassandra02.kubernetes.ka.xcore.net
+cassandra03.kubernetes.ka.xcore.net
 
 [kubernetes_master:children]
 kubemaster01
