@@ -7,9 +7,18 @@
     - role: unixuser
       unix_username: marcel
       unix:user_gecos: Marcel Noe
+    - role: ansible-cassandra
+      cassandra_cluster_name: cluster01
+      cassandra_keyspaces:
+        - ressource-server
+      java_packages: openjdk-11-jdk
 
   tasks:
    - name: remove password requirements for sudo on user marcel
      lineinfile:
        path: /etc/sudoers
        line: "marcel   ALL=(ALL:ALL) NOPASSWD: ALL"
+
+   - name: install java package
+     apt:
+       - openjdk-11-jdk

@@ -16,6 +16,10 @@ cassandra01.kubernetes.ka.xcore.net
 cassandra02.kubernetes.ka.xcore.net
 cassandra03.kubernetes.ka.xcore.net
 
+[cassandra_seed]
+cassandra01.kubernetes.ka.xcore.net
+cassandra02.kubernetes.ka.xcore.net
+
 [kubernetes_master:children]
 kubemaster01
 
