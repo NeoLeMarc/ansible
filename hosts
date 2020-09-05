@@ -6,6 +6,7 @@ galaxy
 ns2
 jupiter
 cassandra
+mysql
 
 [kubernetes:children]
 kubernetes_master
@@ -15,6 +16,9 @@ kubernetes_worker
 cassandra01
 cassandra02
 cassandra03
+
+[mysql:children]
+mysql01
 
 [cassandra01]
 cassandra01.kubernetes.ka.xcore.net
@@ -28,6 +32,9 @@ cassandra03.kubernetes.ka.xcore.net
 [cassandra_seed]
 cassandra01.kubernetes.ka.xcore.net
 cassandra02.kubernetes.ka.xcore.net
+
+[mysql01]
+mysql01.kubernetes.ka.xcore.net
 
 [kubernetes_master:children]
 kubemaster01

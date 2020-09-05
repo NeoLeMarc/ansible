@@ -1,0 +1,15 @@
+- hosts: mysql 
+  remote_user: root
+  roles:
+    - role: baseline
+    - role: basic-server
+    - role: unixuser
+      unix_username: marcel
+      unix:user_gecos: Marcel Noe
+     
+  tasks:
+    - name: install mysql package
+    - apt:
+      pkg:
+        - mysql-server
+      state: present
