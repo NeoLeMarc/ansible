@@ -9,7 +9,7 @@
      
   tasks:
     - name: install mysql package
-    - apt:
-      pkg:
+      apt:
+        pkg:
         - mysql-server
-      state: present
+        state: present
