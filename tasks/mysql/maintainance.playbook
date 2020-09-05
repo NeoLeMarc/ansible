@@ -11,7 +11,8 @@
     - name: install mysql package
       apt:
         pkg:
-        - mysql-server
+        - mariadb-server
+        - mariadb-client
         state: present
 
     - name: enable network access to mariadb

@@ -1,4 +1,4 @@
-- hosts: cassandra 
+- hosts: mysql 
   remote_user: marcel 
   become: yes
   become_user: root
