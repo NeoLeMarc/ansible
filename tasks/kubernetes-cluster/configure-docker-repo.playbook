@@ -1,0 +1,38 @@
+- hosts: kubernetes
+  remote_user: root
+
+  tasks:
+  - name: add custom kubernetes repo ssl cert directory
+    file: 
+      path: /etc/docker/certs.d/kubemaster01.kubernetes.ka.xcore.net:443
+      state: directory
+      recurse: yes
+      owner: root
+      group: root
+
+  - name: upload ssl cert to all hosts
+    copy:
+      dest: /etc/docker/certs.d/kubemaster01.kubernetes.ka.xcore.net:443/ca.crt
+      src: files/kubernetes/ca.crt
+      owner: root
+      group: root
+      mode: '0644'
+
+  - name: create docker direcotry 
+    file: 
+      path: /root/.docker
+      state: directory
+      recurse: yes
+      owner: root
+      group: root
+      mode: '0700'
+
+  - name: upload docker config
+    copy:
+      dest: /root/.docker/config.json
+      src: files/kubernetes/docker-config.json
+      owner: root
+      group: root
+      mode: '0600'
+
+
