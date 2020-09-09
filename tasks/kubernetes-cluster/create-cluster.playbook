@@ -121,7 +121,7 @@
    - name: has CNI already be installed?
      become: true
      become_user: marcel
-     shell: kubectl get pods -n kube-system | grep calico 
+     shell: kubectl get pods -n calico-system | grep calico 
      register: cni_install_status
      when: inventory_hostname in groups["kubernetes_master"]
      ignore_errors: yes
@@ -129,8 +129,24 @@
    - name: Install calico pod network
      become: true
      become_user: marcel
-     command: kubectl create -f https://docs.projectcalico.org/manifests/calico.yaml 
+     command: kubectl create -f https://docs.projectcalico.org/manifests/tigera-operator.yaml
      when: inventory_hostname in groups["kubernetes_master"] and cni_install_status.rc > 0
+
+   - name: upload custome-ressources for calico
+     become: true
+     become_user: marcel
+     copy:
+       dest: /home/marcel/custom-resources.yaml
+       src: files/kubernetes/custom-resources.yaml
+     when: inventory_hostname in groups["kubernetes_master"] and cni_install_status.rc > 0
+
+   - name: apply custom ressources
+     become: true
+     become_user: marcel
+     command: kubectl create -f /home/marcel/custom-resources.yaml 
+     when: inventory_hostname in groups["kubernetes_master"] and cni_install_status.rc > 0
+
+
 
    - name: Generate join command
      command: kubeadm token create --print-join-command
