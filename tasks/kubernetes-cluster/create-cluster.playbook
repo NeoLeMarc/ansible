@@ -146,7 +146,25 @@
      command: kubectl create -f /home/marcel/custom-resources.yaml 
      when: inventory_hostname in groups["kubernetes_master"] and cni_install_status.rc > 0
 
+   - name: redeploy core-dns: delete old coredns deployment
+     become: true
+     become_user: marcel
+     command: kubectl delete --namespace=kube-system deployment coredns kube-dns
+     when: inventory_hostname in groups["kubernetes_master"] and cni_install_status.rc > 0
 
+   - name: redeploy core-dns: upload yaml
+     become: true
+     become_user: marcel
+     copy:
+       dest: /home/marcel/coredns.yaml
+       src: files/kubernetes/coredns.yaml
+     when: inventory_hostname in groups["kubernetes_master"] and cni_install_status.rc > 0
+
+   - name: apply coredns
+     become: true
+     become_user: marcel
+     command: kubectl apply -f /home/marcel/coredns.yaml 
+     when: inventory_hostname in groups["kubernetes_master"] and cni_install_status.rc > 0
 
    - name: Generate join command
      command: kubeadm token create --print-join-command
