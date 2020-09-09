@@ -65,6 +65,8 @@ node_ip="10.10.33.12"
 kubernetes
 services
 jupiter
+mysql
+cassandra
 
 [backup_services]
 control-backup.lan.ka.xcore.net
