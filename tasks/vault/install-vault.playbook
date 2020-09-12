@@ -1,4 +1,4 @@
-- hosts: kubernetes_master 
+- hosts: kubernetes_master,java_development
   user: root
   tasks:
    - name: add vault repository key
