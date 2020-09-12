@@ -1,0 +1,18 @@
+- hosts: kubernetes_master 
+  user: root
+  tasks:
+   - name: add vault repository key
+     apt_key:
+       url: https://apt.releases.hashicorp.com/gpg 
+       state: present
+
+   - name: add vault repository
+     apt_repository:
+       repo: deb [arch=amd64] https://apt.releases.hashicorp.com buster main
+
+   - name: install vault
+     apt:
+       pkg:
+         - vault
+       state: present
+       update_cache: true 
