@@ -15,4 +15,4 @@
   import_playbook: tasks/docker/docker.yml
 
 - name: install vault 
-  import_playbook: tasks/vault/install-vault.yml
+  import_playbook: tasks/vault/install-vault.playbook
