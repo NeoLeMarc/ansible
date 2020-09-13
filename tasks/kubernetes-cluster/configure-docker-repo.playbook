@@ -1,4 +1,4 @@
-- hosts: kubernetes
+- hosts: kubernetes, java_development
   remote_user: root
 
   tasks:
@@ -13,6 +13,14 @@
   - name: upload ssl cert to all hosts
     copy:
       dest: /etc/docker/certs.d/kubemaster01.kubernetes.ka.xcore.net:443/ca.crt
+      src: files/kubernetes/ca.crt
+      owner: root
+      group: root
+      mode: '0644'
+
+  - name: upload ssl cert to all hosts - global cert store
+    copy:
+      dest: /etc/ssl/certs/kubemaster01.kubernetes.ka.xcore.net.pem
       src: files/kubernetes/ca.crt
       owner: root
       group: root

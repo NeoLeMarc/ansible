@@ -16,3 +16,6 @@
 
 - name: install vault 
   import_playbook: tasks/vault/install-vault.playbook
+
+- name: configure docker repo
+  import_playbook: tasks/kubernetes-cluster/configure-docker-repo.playbook 
