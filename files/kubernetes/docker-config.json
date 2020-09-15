@@ -1,0 +1,10 @@
+{
+	"auths": {
+		"kubemaster01.kubernetes.ka.xcore.net:443": {
+			"auth": "YWRtaW46YWRtaW4="
+		}
+	},
+	"HttpHeaders": {
+		"User-Agent": "Docker-Client/19.03.12 (linux)"
+	}
+}

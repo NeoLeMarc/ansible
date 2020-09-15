@@ -1,0 +1,8 @@
+- hosts: atlassian.services.ka.xcore.net
+  remote_user: root
+  roles:
+    - role: baseline
+    - role: basic-server
+    - role: unixuser
+      unix_username: marcel
+      unix_user_gecos: Marcel Noe

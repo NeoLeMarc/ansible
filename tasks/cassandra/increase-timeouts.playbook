@@ -1,0 +1,42 @@
+- hosts: cassandra
+  remote_user: root
+     
+  tasks:
+   - name: change read  timeout
+     lineinfile:
+       path: /opt/cassandra/conf/cassandra.yaml 
+       line: "read_request_timeout_in_ms: 50000"
+       regexp: "^read_request_timeout_in_ms:"
+       state: present
+     notify: Restart cassandra
+
+   - name: change range timeout
+     lineinfile:
+       path: /opt/cassandra/conf/cassandra.yaml 
+       line: "range_request_timeout_in_ms: 100000"
+       regexp: "^range_request_timeout_in_ms:"
+       state: present
+     notify: Restart cassandra
+
+   - name: change write timeout
+     lineinfile:
+       path: /opt/cassandra/conf/cassandra.yaml 
+       line: "write_request_timeout_in_ms: 20000"
+       regexp: "^write_request_timeout_in_ms:"
+       state: present
+     notify: Restart cassandra
+
+   - name: change request timeout
+     lineinfile:
+       path: /opt/cassandra/conf/cassandra.yaml 
+       line: "request_timeout_in_ms: 100000"
+       regexp: "^request_request_timeout_in_ms:"
+       state: present
+     notify: Restart cassandra
+
+  handlers:
+    - name: Restart cassandra
+      service: 
+        name: cassandra
+        state: restarted
+

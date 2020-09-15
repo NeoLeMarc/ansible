@@ -1,14 +1,40 @@
-[debian:children]
+[debian_servers:children]
 services
 kubernetes
 backup_services
 galaxy
 ns2
 jupiter
+cassandra
+mysql
 
 [kubernetes:children]
 kubernetes_master
 kubernetes_worker
+
+[cassandra:children]
+cassandra01
+cassandra02
+cassandra03
+
+[mysql:children]
+mysql01
+
+[cassandra01]
+cassandra01.kubernetes.ka.xcore.net
+
+[cassandra02]
+cassandra02.kubernetes.ka.xcore.net
+
+[cassandra03]
+cassandra03.kubernetes.ka.xcore.net
+
+[cassandra_seed]
+cassandra01.kubernetes.ka.xcore.net
+cassandra02.kubernetes.ka.xcore.net
+
+[mysql01]
+mysql01.kubernetes.ka.xcore.net
 
 [kubernetes_master:children]
 kubemaster01
@@ -39,6 +65,8 @@ node_ip="10.10.33.12"
 kubernetes
 services
 jupiter
+mysql
+cassandra
 
 [backup_services]
 control-backup.lan.ka.xcore.net
@@ -65,10 +93,10 @@ galaxy.lan.ka.xcore.net
 [jupiter]
 jupiter.lan.ka.xcore.net
 
-[py3-hosts]
+[py3_hosts]
 galaxy.lan.ka.xcore.net
 
-[py3-hosts:vars]
+[py3_hosts:vars]
 ansible_python_interpreter=/usr/bin/python3
 
 [workstations]
@@ -78,7 +106,7 @@ nova
 normandy
 galaxy
 
-[java-development]
+[java_development]
 nova
 normandy
 jupiter

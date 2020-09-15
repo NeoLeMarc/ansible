@@ -1,6 +1,6 @@
 # Needs to be executed after local.yml to ensure that all dependencies are installed
 ---
-- hosts: java-development 
+- hosts: java_development 
   tasks:
       - name: install java packages
         apt:
@@ -10,3 +10,12 @@
 
 - name: install intellij
   import_playbook: tasks/intellij/install-idea.playbook
+
+- name: install docker 
+  import_playbook: tasks/docker/docker.yml
+
+- name: install vault 
+  import_playbook: tasks/vault/install-vault.playbook
+
+- name: configure docker repo
+  import_playbook: tasks/kubernetes-cluster/configure-docker-repo.playbook 

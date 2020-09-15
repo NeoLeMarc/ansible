@@ -2,3 +2,4 @@
 roles:
   - name: tecris.maven
   - name: gantsign.intellij
+  - name: git+https://github.com/wireapp/ansible-cassandra.git

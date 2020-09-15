@@ -1,11 +1,11 @@
 - hosts: galaxy.lan.ka.xcore.net
   remote_user: root
   tasks:
-      - name: Start kubernetes nodes
+      - name: Start cassandra nodes
         virt:
             name: "{{ item }}"
             state: running
         with_items:
-                - kubemaster01
-                - kubeworker01
-                - kubeworker02
+                - cassandra01 
+                - cassandra02 
+                - cassandra03

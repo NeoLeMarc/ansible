@@ -1,0 +1,51 @@
+- hosts: cassandra
+  remote_user: root
+  roles:
+    - role: baseline
+    - role: postfix-sattelite
+    - role: basic-server
+    - role: unixuser
+      unix_username: marcel
+      unix:user_gecos: Marcel Noe
+     
+  tasks:
+   - name: remove password requirements for sudo on user marcel
+     lineinfile:
+       path: /etc/sudoers
+       line: "marcel   ALL=(ALL:ALL) NOPASSWD: ALL"
+
+   - name: remove standard jdk
+     apt:
+       pkg:
+        - openjdk-11-jdk-headless
+        - openjdk-11-jre
+        - openjdk-11-jre-headless
+       state: absent
+
+   - name: add repo key for adoptopenjdk
+     apt_key:
+       url: https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public 
+       state: present
+
+   - name: add repo for adoptopenjdk
+     apt_repository:
+       repo: deb [arch=amd64] https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ buster main
+       state: present
+
+   - name: install java8
+     apt:
+       pkg:
+         - adoptopenjdk-8-hotspot
+       state: present
+
+   - name: apply cassandra role
+     include_role:
+       name: ansible-cassandra
+     vars:
+        cassandra_cluster_name: cluster01
+        cassandra_keyspaces:
+          - ressourceserver
+        java_packages: adoptopenjdk-8-hotspot
+        cassandra_dep_os_pkgs:
+          - procps
+ 
