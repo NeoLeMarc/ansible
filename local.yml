@@ -10,6 +10,8 @@
                 - lynx
                 - w3m
                 - redshift-gtk
+                - git
+                - subversion
             state: present
 
             
