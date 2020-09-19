@@ -1,0 +1,28 @@
+# vim: expandtab : filetype=yaml : nospell : ai : sw=2 : ts=2:
+# https://kubernetes.io/blog/2019/03/15/kubernetes-setup-using-ansible-and-vagrant/
+- hosts: java_development
+  remote_user: root 
+   - name: prerequisites for apt over https
+     apt:
+       pkg:
+         - apt-transport-https
+         - ca-certificates
+         - curl
+         - gnupg-agent
+         - software-properties-common
+
+   - name: add repo key for kubernetes
+     apt_key:
+       url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+       state: present
+
+   - name: add kubernetes package repos 
+     apt_repository:
+         repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
+         state: present
+
+   - name: install kubectl
+     apt: 
+        pkg:
+        - kubectl
+        update_cache: yes

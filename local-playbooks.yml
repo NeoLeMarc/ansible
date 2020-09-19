@@ -19,3 +19,6 @@
 
 - name: configure docker repo
   import_playbook: tasks/kubernetes-cluster/configure-docker-repo.playbook 
+
+- name: install kubectl 
+  import_playbook: tasks/kubernetes-cluster/kubernetes-client.playbook
