@@ -1,5 +1,5 @@
-- hosts: mysql 
-  remote_user: marcel 
+- hosts: iot01.wlan.ka.xcore.net 
+  remote_user: pi 
   become: yes
   become_user: root
   become_method: su

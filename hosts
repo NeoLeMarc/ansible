@@ -110,3 +110,7 @@ galaxy
 nova
 normandy
 jupiter
+
+[raspberry_pi]
+noc.lan.ka.xcore.net
+iot01.wlan.ka.xcore.net
