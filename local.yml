@@ -1,6 +1,6 @@
 # Entrypoint for ansible-pull
 ---
-- hosts: workstations, rapsberry_pi
+- hosts: workstations,rapsberry_pi
   tasks:
       - name: additional required packages
         apt:
