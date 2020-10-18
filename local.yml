@@ -49,8 +49,8 @@
             src: /opt/ansible/ansible-collection-xcore/roles/basic-server
 
             dest: /etc/ansible/roles/basic-server
-            owner: marcel
-            group: marcel
+            owner: root 
+            group: root
             state: link
 
       - name: link role unixuser 
@@ -58,8 +58,8 @@
             src: /opt/ansible/ansible-collection-xcore/roles/unixuser
 
             dest: /etc/ansible/roles/unixuser
-            owner: marcel
-            group: marcel
+            owner: root 
+            group: root 
             state: link
 
       - name: link role postfix-sattelite 
@@ -67,8 +67,8 @@
             src: /opt/ansible/ansible-collection-xcore/roles/postfix-sattelite
 
             dest: /etc/ansible/roles/postfix-sattelite
-            owner: marcel
-            group: marcel
+            owner: root 
+            group: root
             state: link
 
       - name: link role baseline 
@@ -76,8 +76,8 @@
             src: /opt/ansible/ansible-collection-xcore/roles/baseline
 
             dest: /etc/ansible/roles/baseline
-            owner: marcel
-            group: marcel
+            owner: root 
+            group: root 
             state: link
 
       - name: install dependencies
