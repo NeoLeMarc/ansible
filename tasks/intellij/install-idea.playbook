@@ -1,4 +1,4 @@
-- hosts: workstations
+- hosts: java_development 
   roles:
     - role: tecris.maven
       maven_major: 3
