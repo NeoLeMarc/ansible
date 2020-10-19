@@ -81,10 +81,10 @@
             state: link
 
       - name: install dependencies
-        local_action: command ansible-galaxy install -r requirements.yml
+        local_action: command ansible-galaxy install -r requirements.yml --ignore-errors
 
       - name: install dependencies for xcore-collection
-        local_action: command ansible-galaxy install -r /opt/ansible/ansible-collection-xcore/roles/basic-server/requirements.yml
+        local_action: command ansible-galaxy install -r /opt/ansible/ansible-collection-xcore/roles/basic-server/requirements.yml --ignore-errors
 
       - name: apply baseline role
         include_role:
