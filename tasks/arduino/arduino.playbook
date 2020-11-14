@@ -2,7 +2,8 @@
   remote_user: root
   vars:
     arduino_version: 1.8.13
-    arduino_filename: arduino-{{ arduino_version }}-linux64
+    arduino_dirname: arduino-{{ arduino_version }}
+    arduino_filename: arduino-{{ arduino_version }}-linuxaarch64.tar.xz
 
   tasks:
     - name: does arduino already exist?
@@ -23,13 +24,18 @@
       get_url: 
         url: https://downloads.arduino.cc/{{ arduino_filename }}
         dest: /opt/arduino/{{ arduino_filename }}
-      when: not arduino_file.exists 
+      when: not arduino_file.stat.exists 
+
+    - name: does unpacked dir exist
+      stat:
+        path: /opt/arduino/{{ arduino_dirname }}
+      register: arduino_dirstat
 
     - name: unpack file
       unarchive:
         src: /opt/arduino/{{ arduino_filename }}
-        dest: /opt/arduino/{{ arduino_version }}
-      when: not arduino_file.exists
+        dest: /opt/arduino/
+      when: not arduino_dirstat.stat.exists
 
     - name: unlink old version
       file:
@@ -38,7 +44,7 @@
 
     - name: link current version
       file:
-         src: /opt/arduino/{{ arduino_version }}
+         src: /opt/arduino/{{ arduino_dirname }}
          dest: /opt/arduino/current
          owner: root
          group: root
