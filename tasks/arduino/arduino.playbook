@@ -49,4 +49,9 @@
          owner: root
          group: root
          state: link
+
+    - name: allow user marcel to access USB ports
+      user: name=marcel
+            group=dialout
+            append=yes
           
