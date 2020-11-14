@@ -3,7 +3,7 @@
   vars:
     arduino_version: 1.8.13
     arduino_dirname: arduino-{{ arduino_version }}
-    arduino_filename: arduino-{{ arduino_version }}-linuxaarch64.tar.xz
+    arduino_filename: arduino-{{ arduino_version }}-linux64.tar.xz
 
   tasks:
     - name: does arduino already exist?
