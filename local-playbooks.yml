@@ -22,3 +22,6 @@
 
 - name: install kubectl 
   import_playbook: tasks/kubernetes-cluster/kubernetes-client.playbook
+
+- name: install arduino 
+  import_playbook: tasks/arduino/arduino.playbook
