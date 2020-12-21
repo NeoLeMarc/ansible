@@ -1,82 +1,91 @@
 - hosts: arduino
   remote_user: root
   vars:
-    arduino_version: 1.8.13
-    arduino_dirname: arduino-{{ arduino_version }}
-    arduino_filename: arduino-{{ arduino_version }}-linux64.tar.xz
+	arduino_version: 1.8.13
+	arduino_dirname: arduino-{{ arduino_version }}
+	arduino_filename: arduino-{{ arduino_version }}-linux64.tar.xz
 
   tasks:
-    - name: does arduino already exist?
-      stat:
-        path: /opt/arduino/{{ arduino_filename }}.tar.xz
-      register: arduino_file
+	- name: does arduino already exist?
+	  stat:
+		path: /opt/arduino/{{ arduino_filename }}.tar.xz
+	  register: arduino_file
 
 
-    - name: create arduino directories
-      file: 
-            path=/opt/arduino
-            state=directory
-            mode=0755
-            owner=root
-            group=root
+	- name: create arduino directories
+	  file: 
+		path=/opt/arduino
+		state=directory
+		mode=0755
+		owner=root
+		group=root
 
-    - name: fetch arduino binary if it does not exist
-      get_url: 
-        url: https://downloads.arduino.cc/{{ arduino_filename }}
-        dest: /opt/arduino/{{ arduino_filename }}
-      when: not arduino_file.stat.exists 
+	- name: fetch arduino binary if it does not exist
+	  get_url: 
+	  url: https://downloads.arduino.cc/{{ arduino_filename }}
+	  dest: /opt/arduino/{{ arduino_filename }}
+	  when: not arduino_file.stat.exists 
 
-    - name: does unpacked dir exist
-      stat:
-        path: /opt/arduino/{{ arduino_dirname }}
-      register: arduino_dirstat
+	- name: does unpacked dir exist
+	  stat:
+		path: /opt/arduino/{{ arduino_dirname }}
+	  register: arduino_dirstat
 
-    - name: unpack file
-      unarchive:
-        src: /opt/arduino/{{ arduino_filename }}
-        dest: /opt/arduino/
-      when: not arduino_dirstat.stat.exists
+	- name: unpack file
+	  unarchive:
+		src: /opt/arduino/{{ arduino_filename }}
+		dest: /opt/arduino/
+	  when: not arduino_dirstat.stat.exists
 
-    - name: unlink old version
-      file:
-        path: /opt/arduino/current
-        state: absent
+	- name: unlink old version
+	  file:
+		path: /opt/arduino/current
+		state: absent
 
-    - name: link current version
-      file:
-         src: /opt/arduino/{{ arduino_dirname }}
-         dest: /opt/arduino/current
-         owner: root
-         group: root
-         state: link
+	- name: link current version
+	  file:
+		src: /opt/arduino/{{ arduino_dirname }}
+		dest: /opt/arduino/current
+		owner: root
+		group: root
+		state: link
 
-    - name: allow user marcel to access USB ports
-      user: name=marcel
-            group=dialout
-            append=yes
+	- name: allow user marcel to access USB ports
+	  user: name=marcel
+		group=dialout
+		append=yes
 
-    - name: install ycmd
-      apt: 
-        name: ycmd
-        state: latest
-        install_recommends: yes
-        update_cache: yes
-        default_release: testing
+	- name: install ycmd
+	  apt: 
+	  name: ycmd
+	  state: latest
+	  install_recommends: yes
+	  update_cache: yes
+	  default_release: testing
 
-    - name: install clang 
-      apt: 
-        name: clang
-        state: latest
-        install_recommends: yes
-        update_cache: yes
-        default_release: testing
- 
-    - name: install python build dependencies 
-      apt:
-        name: libpython3.8-dev
-        state: latest
+	- name: install clang 
+	  apt: 
+	  name: clang
+	  state: latest
+	  install_recommends: yes
+	  update_cache: yes
+	  default_release: testing
 
-    - name: run ycmd installer
-      become: true
-      become_user: marcel
-      shell: cd /home/marcel/.vim/plugged/YouCompleteMe; python3.8 install.py
+	- name: install python build dependencies 
+	  apt:
+		name: libpython3.8-dev
+		state: latest
+
+	- name: run ycmd installer
+	  become: true
+	  become_user: marcel
+	  shell: cd /home/marcel/.vim/plugged/YouCompleteMe; python3.8 install.py
+
+	- name: link ycm extra config
+	  file:
+		src: "/home/{{ unix_username }}/config-files/ycm_extra_conf.py"
+		dest: "/home/{{ unix_username }}/.vim/.ycm_extra_conf.py"
+		owner: "{{ unix_username }}"
+		group: "{{ unix_username }}"
+		state: link
+
