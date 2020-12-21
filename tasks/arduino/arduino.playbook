@@ -54,4 +54,11 @@
       user: name=marcel
             group=dialout
             append=yes
-          
+
+    - name: install ycmd
+      apt: 
+        name: ycmd
+        state: latest
+        install_recommends: yes
+        update_cache: yes
+        default_release: testing
