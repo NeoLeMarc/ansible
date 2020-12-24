@@ -1,5 +1,5 @@
-- hosts: iot01.wlan.ka.xcore.net 
-  remote_user: pi 
+- hosts: iot 
+  remote_user: marcel
   become: yes
   become_user: root
   become_method: su

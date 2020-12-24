@@ -119,3 +119,6 @@ iot01.wlan.ka.xcore.net
 nova
 normandy
 jupiter
+
+[iot]
+iotserver01.iot.ka.xcore.net
