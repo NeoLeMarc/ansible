@@ -1,8 +1,9 @@
-- hosts: atlassian.services.ka.xcore.net
+- hosts: iot 
   remote_user: root
   roles:
     - role: baseline
     - role: basic-server
+    - role: postfix-sattelite
     - role: unixuser
       unix_username: marcel
       unix_user_gecos: Marcel Noe
