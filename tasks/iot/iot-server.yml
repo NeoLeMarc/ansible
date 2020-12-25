@@ -1,0 +1,21 @@
+- hosts: iot 
+  user: root
+  roles:
+    - role: baseline
+    - role: basic-server
+    - role: unixuser
+      unix_username: marcel
+      unix_user_gecos: Marcel Noe
+
+  tasks:
+      - name: install mosquitto
+        apt:
+          name: mosquitto
+          state: present
+          update_cache: yes
+
+      - name: install mosquitto client
+        apt:
+          name: mosquitto-clients
+          state: present
+          update_cache: yes
