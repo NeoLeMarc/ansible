@@ -1,9 +1,10 @@
-- hosts: iot 
+- hosts: debian_servers 
   remote_user: root
   roles:
     - role: baseline
     - role: basic-server
     - role: postfix-sattelite
+      when: inventory_hostname not in groups["mailservers"]
     - role: unixuser
       unix_username: marcel
       unix_user_gecos: Marcel Noe
