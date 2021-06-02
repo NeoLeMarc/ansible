@@ -62,7 +62,7 @@
         state: latest
         install_recommends: yes
         update_cache: yes
-        default_release: testing
+          #default_release: testing
 
     - name: install clang 
       apt: 
@@ -70,7 +70,7 @@
         state: latest
         install_recommends: yes
         update_cache: yes
-        default_release: testing
+          #default_release: testing
 
     - name: install python build dependencies 
       apt:
