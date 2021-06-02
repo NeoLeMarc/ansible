@@ -105,11 +105,13 @@ jupiter
 nova
 normandy
 galaxy
+odyssey
 
 [java_development]
 nova
 normandy
 jupiter
+odyssey
 
 [raspberry_pi]
 noc.lan.ka.xcore.net
@@ -118,6 +120,7 @@ iot01.wlan.ka.xcore.net
 [arduino]
 nova
 normandy
+odyssey
 jupiter
 
 [iot]
