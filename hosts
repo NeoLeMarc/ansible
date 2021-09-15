@@ -9,6 +9,9 @@ cassandra
 mysql
 outpost01
 
+[debian_servers:vars]
+ansible_python_interpreter="/usr/bin/python3"
+
 [kubernetes:children]
 kubernetes_master
 kubernetes_worker
@@ -77,7 +80,7 @@ vpn-backup.services.ka.xcore.net
 atlassian.services.ka.xcore.net
 phpserver.services.ka.xcore.net
 webserver.services.ka.xcore.net
-control.wlan.ka.xcore.net
+control.lan.ka.xcore.net
 archive.services.ka.xcore.net
 mx.services.ka.xcore.net
 vcs.services.ka.xcore.net
