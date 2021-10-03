@@ -3,7 +3,7 @@ services
 kubernetes
 backup_services
 galaxy
-galaxy2
+polarstern
 ns2
 jupiter
 cassandra
@@ -95,8 +95,8 @@ ns2.noetech.net
 [galaxy]
 galaxy.lan.ka.xcore.net
 
-[galaxy2]
-galaxy2.lan.ka.xcore.net
+[polarstern]
+polarstern.lan.ka.xcore.net
 
 [outpost01]
 outpost01.lan.ka.xcore.net
@@ -106,6 +106,7 @@ jupiter.lan.ka.xcore.net
 
 [py3_hosts]
 galaxy.lan.ka.xcore.net
+galaxy2.lan.ka.xcore.net
 
 [py3_hosts:vars]
 ansible_python_interpreter=/usr/bin/python3
@@ -117,6 +118,7 @@ nova
 normandy
 galaxy
 odyssey
+polarstern
 
 [java_development]
 nova
