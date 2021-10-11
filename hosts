@@ -3,6 +3,7 @@ services
 kubernetes
 backup_services
 galaxy
+polarstern
 ns2
 jupiter
 cassandra
@@ -97,6 +98,9 @@ hailstorm.10glan.ka.xcore.net
 [galaxy]
 galaxy.lan.ka.xcore.net
 
+[polarstern]
+polarstern.lan.ka.xcore.net
+
 [outpost01]
 outpost01.lan.ka.xcore.net
 
@@ -105,6 +109,7 @@ jupiter.lan.ka.xcore.net
 
 [py3_hosts]
 galaxy.lan.ka.xcore.net
+galaxy2.lan.ka.xcore.net
 
 [py3_hosts:vars]
 ansible_python_interpreter=/usr/bin/python3
@@ -116,7 +121,11 @@ nova
 normandy
 galaxy
 odyssey
+<<<<<<< HEAD
 hailstorm
+=======
+polarstern
+>>>>>>> 92c7c6ce5b4b8092af75b0fc6758fcd61fcdc55a
 
 [java_development]
 nova
