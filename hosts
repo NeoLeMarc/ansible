@@ -91,6 +91,9 @@ monitoring.services.ka.xcore.net
 [ns2]
 ns2.noetech.net
 
+[hailstorm]
+hailstorm.10glan.ka.xcore.net 
+
 [galaxy]
 galaxy.lan.ka.xcore.net
 
@@ -113,6 +116,7 @@ nova
 normandy
 galaxy
 odyssey
+hailstorm
 
 [java_development]
 nova
