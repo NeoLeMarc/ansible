@@ -1,5 +1,5 @@
-- hosts: iot 
-  remote_user: marcel
+- hosts: workstations
+  remote_user: jennifer 
   become: yes
   become_user: root
   become_method: su

@@ -62,7 +62,7 @@
         state: latest
         install_recommends: yes
         update_cache: yes
-        default_release: testing
+          #default_release: testing
 
     - name: install clang 
       apt: 
@@ -70,17 +70,17 @@
         state: latest
         install_recommends: yes
         update_cache: yes
-        default_release: testing
+          #default_release: testing
 
     - name: install python build dependencies 
       apt:
-        name: libpython3.8-dev
+        name: libpython3-dev
         state: latest
 
     - name: run ycmd installer
       become: true
       become_user: marcel
-      shell: cd /home/marcel/.vim/plugged/YouCompleteMe; python3.8 install.py
+      shell: cd /home/marcel/.vim/plugged/YouCompleteMe; python3 install.py
 
     - name: link ycm extra config
       file:

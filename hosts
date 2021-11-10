@@ -3,12 +3,16 @@ services
 kubernetes
 backup_services
 galaxy
+polarstern
 ns2
 jupiter
 cassandra
 mysql
 outpost01
 taurus
+
+[debian_servers:vars]
+ansible_python_interpreter="/usr/bin/python3"
 
 [kubernetes:children]
 kubernetes_master
@@ -78,7 +82,7 @@ vpn-backup.services.ka.xcore.net
 atlassian.services.ka.xcore.net
 phpserver.services.ka.xcore.net
 webserver.services.ka.xcore.net
-control.wlan.ka.xcore.net
+control.lan.ka.xcore.net
 archive.services.ka.xcore.net
 mx.services.ka.xcore.net
 vcs.services.ka.xcore.net
@@ -89,11 +93,17 @@ monitoring.services.ka.xcore.net
 [ns2]
 ns2.noetech.net
 
+[hailstorm]
+hailstorm.10glan.ka.xcore.net 
+
 [galaxy]
 galaxy.lan.ka.xcore.net
 
 [taurus]
 taurus.10glan.ka.xcore.net
+
+[polarstern]
+polarstern.lan.ka.xcore.net
 
 [outpost01]
 outpost01.lan.ka.xcore.net
@@ -103,6 +113,8 @@ jupiter.lan.ka.xcore.net
 
 [py3_hosts]
 galaxy.lan.ka.xcore.net
+galaxy2.lan.ka.xcore.net
+rubble
 
 [py3_hosts:vars]
 ansible_python_interpreter=/usr/bin/python3
@@ -113,11 +125,17 @@ jupiter
 nova
 normandy
 galaxy
+odyssey
+hailstorm
+polarstern
+rubble
 
 [java_development]
 nova
 normandy
 jupiter
+odyssey
+rubble
 
 [raspberry_pi]
 noc.lan.ka.xcore.net
@@ -126,6 +144,7 @@ iot01.wlan.ka.xcore.net
 [arduino]
 nova
 normandy
+odyssey
 jupiter
 
 [iot]
@@ -141,3 +160,6 @@ mx.services.ka.xcore.net
 
 [archive]
 archive.services.ka.xcore.net
+
+[rubble]
+rubble.wlan.ka.xcore.net
