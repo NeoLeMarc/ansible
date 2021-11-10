@@ -8,6 +8,7 @@ jupiter
 cassandra
 mysql
 outpost01
+taurus
 
 [kubernetes:children]
 kubernetes_master
@@ -90,6 +91,9 @@ ns2.noetech.net
 
 [galaxy]
 galaxy.lan.ka.xcore.net
+
+[taurus]
+taurus.lan.ka.xcore.net
 
 [outpost01]
 outpost01.lan.ka.xcore.net
