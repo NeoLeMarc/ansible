@@ -9,6 +9,7 @@ jupiter
 cassandra
 mysql
 outpost01
+taurus
 
 [debian_servers:vars]
 ansible_python_interpreter="/usr/bin/python3"
@@ -98,6 +99,9 @@ hailstorm.10glan.ka.xcore.net
 [galaxy]
 galaxy.lan.ka.xcore.net
 
+[taurus]
+taurus.10glan.ka.xcore.net
+
 [polarstern]
 polarstern.lan.ka.xcore.net
 
@@ -110,6 +114,7 @@ jupiter.lan.ka.xcore.net
 [py3_hosts]
 galaxy.lan.ka.xcore.net
 galaxy2.lan.ka.xcore.net
+rubble
 
 [py3_hosts:vars]
 ansible_python_interpreter=/usr/bin/python3
@@ -123,12 +128,14 @@ galaxy
 odyssey
 hailstorm
 polarstern
+rubble
 
 [java_development]
 nova
 normandy
 jupiter
 odyssey
+rubble
 
 [raspberry_pi]
 noc.lan.ka.xcore.net
@@ -153,3 +160,6 @@ mx.services.ka.xcore.net
 
 [archive]
 archive.services.ka.xcore.net
+
+[rubble]
+rubble.wlan.ka.xcore.net
