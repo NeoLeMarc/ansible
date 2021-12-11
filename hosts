@@ -81,7 +81,7 @@ vpn-backup.services.ka.xcore.net
 atlassian.services.ka.xcore.net
 phpserver.services.ka.xcore.net
 webserver.services.ka.xcore.net
-control.lan.ka.xcore.net
+control.wlan.ka.xcore.net
 archive.services.ka.xcore.net
 mx.services.ka.xcore.net
 vcs.services.ka.xcore.net
