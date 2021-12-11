@@ -1,4 +1,4 @@
-- hosts: iot 
+- hosts: hailstorm.10glan.ka.xcore.net
   remote_user: marcel
   become: yes
   become_user: root
