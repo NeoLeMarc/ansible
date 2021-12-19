@@ -1,0 +1,5 @@
+- hosts: services
+  remote_user: root
+  tasks:
+    - name: run clamscan
+      shell: clamscan -ri / --exclude-dir="^/proc" --exclude-dir="^/sys" --exclude-dir="^/proc" 
