@@ -20,7 +20,7 @@
           name: "ansible pull"
           minute: "*/15"
           hour: "*"
-          job: "ansible-pull  -U https://citadel.noetech.net/stash/scm/an/ansible.git -i hosts local.yml -o | grep 'Repository has not changed, quitting' > /dev/null || ansible-pull  -U https://citadel.noetech.net/stash/scm/an/ansible.git -i hosts local-playbooks.yml > /dev/null"
+          job: "ansible-pull  -U https://github.com/NeoLeMarc/ansible -i hosts local.yml -o | grep 'Repository has not changed, quitting' > /dev/null || ansible-pull  -U https://github.com/NeoLeMarc/ansible -i hosts local-playbooks.yml > /dev/null"
           cron_file: ansible_pull
           user: root
 
@@ -37,7 +37,7 @@
           cron_file: ansible_pull
 
       - name: Download required roles
-        git: repo=https://citadel.noetech.net/stash/scm/an/ansible-collection-xcore.git version=master dest=/opt/ansible/ansible-collection-xcore
+        git: repo=https://github.com/NeoLeMarc/ansible version=master dest=/opt/ansible/ansible-collection-xcore
 
       - name: roles directory
         file:

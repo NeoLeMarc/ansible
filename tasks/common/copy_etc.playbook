@@ -1,4 +1,4 @@
-- hosts: debian
+- hosts: debian_servers
   remote_user: root
   tasks:
   - name: create etc.tar
