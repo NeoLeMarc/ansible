@@ -37,7 +37,7 @@
           cron_file: ansible_pull
 
       - name: Download required roles
-        git: repo=https://github.com/NeoLeMarc/ansible version=master dest=/opt/ansible/ansible-collection-xcore
+        git: repo=https://github.com/NeoLeMarc/ansible-collection-xcore version=master dest=/opt/ansible/ansible-collection-xcore
 
       - name: roles directory
         file:
