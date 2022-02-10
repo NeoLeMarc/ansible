@@ -1,0 +1,35 @@
+- hosts: monitoring.services.ka.xcore.net
+  remote_user: root
+
+  tasks:
+    - name: Install Elasticsearch
+      apt:
+        pkg: elasticsearch
+        state: present
+
+
+    - name: ensure elasticsearch is running
+      service: 
+        name: elasticsearch.service
+        enabled: yes
+        state: started
+
+    - name: Install Kibana
+      apt:
+        pkg: kibana
+        state: present
+
+    - name: enable kibana remote access
+      lineinfile:
+        path: /etc/kibana/kibana.yml
+        line: "server.host: \"10.10.2.2\""
+
+
+    - name: Start kibana
+      service:
+        name: kibana.service
+        enabled: yes
+        state: restarted
+
+    - name: create enrollment token
+      shell: /usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token -s kibana
