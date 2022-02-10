@@ -1,0 +1,23 @@
+- hosts: monitoring.services.ka.xcore.net
+  remote_user: root
+
+  tasks:
+    - name: prerequisites for apt over https 
+      apt:
+        pkg:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg-agent
+          - software-properties-common
+
+    - name: add repo key for elk
+      apt_key:
+        url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+        state: present
+
+    - name: add repo for ELK
+      apt_repository:
+        repo: deb [arch=amd64] https://artifacts.elastic.co/packages/8.x/apt stable main
+        state: present
+
