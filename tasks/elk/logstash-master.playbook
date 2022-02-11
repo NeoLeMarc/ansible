@@ -1,0 +1,61 @@
+- hosts: monitoring.services.ka.xcore.net
+  remote_user: root
+
+  tasks:
+    - name: Install filebeat 
+      apt:
+        pkg: filebeat 
+        state: present
+
+    - name: ensure filebeat is running
+      service: 
+        name: filebeat.service
+        enabled: yes
+        state: started
+
+    - name: install logstash
+      apt: 
+        pkg: logstash
+        state: present
+
+
+    - name: enable logstash
+      shell: filebeat modules enable logstash
+
+    - name: configure logstash 
+      lineinfile:
+        path: /etc/filebeat/modules.d/logstash.yml
+        insertafter: "^  log:"
+        regexp: ".*enabled: false"
+        line: "    enabled: true"
+
+    - name: filebeat setup
+      shell: filebeat setup
+
+        #    - name: filebeat e
+        # shell: filebeat -e
+
+    - name: enable filebeat system logs
+      shell: filebeat modules enable system
+
+    - name: enable syslog shipping
+      lineinfile:
+        path: /etc/filebeat/modules.d/system.yml
+        insertafter: "^  syslog:"
+        regexp: ".*enabled: false"
+        line: "    enabled: true"
+
+    - name: enable authlog shipping
+      lineinfile:
+        path: /etc/filebeat/modules.d/system.yml
+        insertafter: "^  auth:"
+        regexp: ".*enabled: false"
+        line: "    enabled: true"
+
+    - name: restart filebeat
+      service: 
+        name: filebeat.service
+        enabled: yes
+        state: restarted
+
+   
