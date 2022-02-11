@@ -1,0 +1,94 @@
+- hosts: debian_servers
+  remote_user: root
+
+  tasks:
+    - name: prerequisites for apt over https 
+      apt:
+        pkg:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg-agent
+          - software-properties-common
+
+    - name: add repo key for elk
+      apt_key:
+        url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+        state: present
+
+    - name: add repo for ELK
+      apt_repository:
+        repo: deb [arch=amd64] https://artifacts.elastic.co/packages/8.x/apt stable main
+        state: present
+
+    - name: Install filebeat 
+      apt:
+        pkg: filebeat 
+        state: present
+
+    - name: ensure filebeat is running
+      service: 
+        name: filebeat.service
+        enabled: yes
+        state: started
+
+    - name: upload filebeat config
+      copy:
+        dest: /etc/filebeat/filebeat.yml
+        src: /home/marcel/filebeat.yml
+
+
+    - name: install logstash
+      apt: 
+        pkg: logstash
+        state: present
+
+
+    - name: enable logstash
+      shell: filebeat modules enable logstash
+
+    - name: add monitoring to hosts 
+      lineinfile:
+        path: /etc/hosts
+        regexp: "10.10.2.2"
+        line: "10.10.2.2  monitoring.services.ka.xcore.net  monitoring"
+
+
+
+    - name: configure logstash 
+      lineinfile:
+        path: /etc/filebeat/modules.d/logstash.yml
+        insertafter: "^  log:"
+        regexp: ".*enabled: false"
+        line: "    enabled: true"
+
+    - name: filebeat setup
+      shell: filebeat setup
+
+        #    - name: filebeat e
+        # shell: filebeat -e
+
+    - name: enable filebeat system logs
+      shell: filebeat modules enable system
+
+    - name: enable syslog shipping
+      lineinfile:
+        path: /etc/filebeat/modules.d/system.yml
+        insertafter: "^  syslog:"
+        regexp: ".*enabled: false"
+        line: "    enabled: true"
+
+    - name: enable authlog shipping
+      lineinfile:
+        path: /etc/filebeat/modules.d/system.yml
+        insertafter: "^  auth:"
+        regexp: ".*enabled: false"
+        line: "    enabled: true"
+
+    - name: restart filebeat
+      service: 
+        name: filebeat.service
+        enabled: yes
+        state: restarted
+
+   
