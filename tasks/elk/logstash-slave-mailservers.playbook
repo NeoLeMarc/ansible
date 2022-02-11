@@ -1,0 +1,29 @@
+- hosts: mailservers 
+  remote_user: root
+
+  tasks:
+    - name: clone git repo
+      git: repo=https://github.com/maurom/filebeat-module-postfix version=master dest=/root/filebeat-module-postfix
+
+    - name: copy filebeat module
+      copy:
+        src: /root/filebeat-module-postfix/module/postfix
+        dest: /usr/share/filebeat/module/
+        remote_src: yes
+
+    - name: copy filebeat module descriptor
+      copy:
+        src: /root/filebeat-module-postfix/modules.d/postfix.yml.disabled
+        dest: /etc/filebeat/modules.d
+        remote_src: yes
+
+    - name: enable postfix module 
+      shell: filebeat modules enable postfix
+
+    - name: restart filebeat
+      service: 
+        name: filebeat.service
+        enabled: yes
+        state: restarted
+
+   
