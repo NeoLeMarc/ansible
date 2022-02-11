@@ -1,0 +1,30 @@
+- hosts: 
+  - webserver.services.ka.xcore.net
+  - phpserver.services.ka.xcore.net
+  remote_user: root
+
+  tasks:
+    - name: enable apache module 
+      shell: filebeat modules enable apache
+
+    - name: enable access log shipping
+      lineinfile:
+        path: /etc/filebeat/modules.d/apache.yml
+        insertafter: "^  access:"
+        regexp: ".*enabled: false"
+        line: "    enabled: true"
+
+    - name: enable error log shipping
+      lineinfile:
+        path: /etc/filebeat/modules.d/apache.yml
+        insertafter: "^  error:"
+        regexp: ".*enabled: false"
+        line: "    enabled: true"
+
+    - name: restart filebeat
+      service: 
+        name: filebeat.service
+        enabled: yes
+        state: restarted
+
+   
