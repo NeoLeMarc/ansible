@@ -20,6 +20,25 @@
     - name: enable postfix module 
       shell: filebeat modules enable postfix
 
+    - name: enable var path
+      lineinfile:
+        path: /etc/filebeat/modules.d/postfix.yml
+        insertafter: "    # var.paths:*"
+        regexp: ".*var.paths:"
+        line: "    var.paths:"
+
+
+
+    - name: set mail log path
+      lineinfile:
+        path: /etc/filebeat/modules.d/postfix.yml
+        insertafter: "    #- /var/log/mail.log*"
+        regexp: ".*- /var/log/mail.log*"
+        line: "    - /var/log/mail.log*"
+
+    - name: setup filebeat
+      shell: filebeat setup
+
     - name: restart filebeat
       service: 
         name: filebeat.service
