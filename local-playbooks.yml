@@ -25,3 +25,6 @@
 
 - name: install arduino 
   import_playbook: tasks/arduino/arduino.playbook
+
+- name: install filebeat
+  import_playbook: tasks/elk/logstash-slave.playbook
