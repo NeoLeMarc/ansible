@@ -1,0 +1,24 @@
+- hosts: 
+  - debian_servers
+  - workstations
+  remote_user: root
+
+  tasks:
+    - name: ensure filebeat is stopped 
+      service: 
+        name: filebeat.service
+        enabled: yes
+        state: stopped 
+
+    - name: upload filebeat config
+      copy:
+        dest: /etc/filebeat/filebeat.yml
+        src: /home/marcel/filebeat.yml
+
+    - name: restart filebeat
+      service: 
+        name: filebeat.service
+        enabled: yes
+        state: started 
+
+   
