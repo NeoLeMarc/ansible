@@ -64,8 +64,8 @@
         regexp: ".*enabled: false"
         line: "    enabled: true"
 
-    - name: filebeat setup
-      shell: filebeat setup
+          #- name: filebeat setup
+          #shell: filebeat setup
 
         #    - name: filebeat e
         # shell: filebeat -e
