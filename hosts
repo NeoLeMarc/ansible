@@ -129,9 +129,11 @@ odyssey
 hailstorm
 polarstern
 rubble
+supernova
 
 [java_development]
 nova
+supernova
 normandy
 jupiter
 odyssey
@@ -143,6 +145,7 @@ iot01.wlan.ka.xcore.net
 
 [arduino]
 nova
+supernova
 normandy
 odyssey
 jupiter
