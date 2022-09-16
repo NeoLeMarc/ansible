@@ -139,6 +139,7 @@ jupiter
 odyssey
 rubble
 polarstern
+iotserver01
 
 [raspberry_pi:children]
 noc
