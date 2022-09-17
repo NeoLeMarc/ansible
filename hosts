@@ -42,6 +42,9 @@ cassandra02.kubernetes.ka.xcore.net
 [mysql01]
 mysql01.kubernetes.ka.xcore.net
 
+[polarstern]
+polarstern.lan.ka.xcore.net
+
 [kubernetes_master:children]
 kubemaster01
 
@@ -102,25 +105,22 @@ galaxy.lan.ka.xcore.net
 [taurus]
 taurus.10glan.ka.xcore.net
 
-[polarstern]
-polarstern.lan.ka.xcore.net
-
 [outpost01]
 outpost01.lan.ka.xcore.net
 
 [jupiter]
 jupiter.lan.ka.xcore.net
 
-[py3_hosts]
-galaxy.lan.ka.xcore.net
-galaxy2.lan.ka.xcore.net
+[py3_hosts:children]
+galaxy
+polarstern
 rubble
 
 [py3_hosts:vars]
 ansible_python_interpreter=/usr/bin/python3
 
-[workstations]
-ansible-test.lan.ka.xcore.net
+[workstations:children]
+ansible-test
 jupiter
 nova
 normandy
@@ -131,7 +131,7 @@ polarstern
 rubble
 supernova
 
-[java_development]
+[java_development:children]
 nova
 supernova
 normandy
@@ -139,20 +139,22 @@ jupiter
 odyssey
 rubble
 hailstorm
+polarstern
+iotserver01
 
-[raspberry_pi]
-noc.lan.ka.xcore.net
-iot01.wlan.ka.xcore.net
+[raspberry_pi:children]
+noc
+iot01
 
-[arduino]
+[arduino:children]
 nova
 supernova
 normandy
 odyssey
 jupiter
 
-[iot]
-iotserver01.iot.ka.xcore.net
+[iot:children]
+iotserver01
 
 [mailservers:children]
 ns2
@@ -167,3 +169,27 @@ archive.services.ka.xcore.net
 
 [rubble]
 rubble.wlan.ka.xcore.net
+
+[ansible-test]
+ansible-test.lan.ka.xcore.net
+
+[nova]
+nova.wlan.ka.xcore.net
+
+[normandy]
+normandy.wlan.ka.xcore.net
+
+[odyssey]
+odyssey.wlan.ka.xcore.net
+
+[supernova]
+supernova.wlan.ka.xcore.net
+
+[noc]
+noc.lan.ka.xcore.net
+
+[iot01]
+iot01.wlan.ka.xcore.net
+
+[iotserver01]
+iotserver01.iot.ka.xcore.net

@@ -1,3 +1,5 @@
+# Name is missleading, we are removing logstash and switching to filebeat directly
+# logging to elastic
 - hosts: 
   - debian_servers
   - workstations
@@ -40,14 +42,10 @@
         src: /home/marcel/filebeat.yml
 
 
-    - name: install logstash
+    - name: remove logstash
       apt: 
         pkg: logstash
-        state: present
-
-
-    - name: enable logstash
-      shell: filebeat modules enable logstash
+        state: absent 
 
     - name: add monitoring to hosts 
       lineinfile:
@@ -55,14 +53,6 @@
         regexp: "10.10.2.2"
         line: "10.10.2.2  monitoring.services.ka.xcore.net  monitoring"
 
-
-
-    - name: configure logstash 
-      lineinfile:
-        path: /etc/filebeat/modules.d/logstash.yml
-        insertafter: "^  log:"
-        regexp: ".*enabled: false"
-        line: "    enabled: true"
 
           #- name: filebeat setup
           #shell: filebeat setup
