@@ -48,7 +48,7 @@
         url: https://raw.githubusercontent.com/grafana/loki/v2.6.1/cmd/loki/loki-local-config.yaml
         dest: /opt/loki/etc/loki-config.yaml
         force: no
-      when: not lokiconfig_exists
+      when: not lokiconfig_exists.exists
 
     - name: Check if promtail config exists
       stat:
@@ -60,7 +60,7 @@
         url: https://raw.githubusercontent.com/grafana/loki/v2.6.1/clients/cmd/promtail/promtail-docker-config.yaml
         dest: /opt/loki/etc/promtail-config.yaml
         force: no
-      when: not promtailconfig_exists
+      when: not promtailconfig_exists.exists
 
     - name: Install Docker Module for Python
       pip:

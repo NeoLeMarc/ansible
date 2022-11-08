@@ -1,0 +1,92 @@
+- hosts: control.wlan.ka.xcore.net
+  remote_user: root
+
+  tasks:
+    - name: Add promtail group
+      ansible.builtin.group:
+        name: promtail
+        gid: 10002
+
+    - name: Add promtail user
+      ansible.builtin.user:
+        name: promtail 
+        comment: Promtail 
+        uid: 10002
+        group: promtail
+        system: true
+        groups: 
+          - adm
+          - root
+
+    - name: Create installation directory
+      ansible.builtin.file:
+          path: /opt/promtail
+          state: 'directory'
+          mode: '0750'
+          owner: promtail
+          group: promtail
+
+    - name: Create config directory
+      ansible.builtin.file:
+          path: /opt/promtail/etc
+          state: 'directory'
+          mode: '0750'
+          owner: promtail
+          group: promtail
+
+    - name: Create bin directory
+      ansible.builtin.file:
+          path: /opt/promtail/bin
+          state: 'directory'
+          mode: '0750'
+          owner: promtail
+          group: promtail
+
+    - name: Create bin directory
+      ansible.builtin.file:
+          path: /opt/promtail/install
+          state: 'directory'
+          mode: '0750'
+          owner: promtail
+          group: promtail
+
+    - name: Check if promtail config exists
+      stat:
+        path: /opt/promtail/etc/promtail-config.yaml
+      register: promtailconfig_exists
+
+    - name: Upload promtail config
+      copy:
+        src: ../../files/promtail/promtail-config.yaml
+        dest: /opt/promtail/etc/promtail-config.yaml
+      when: not promtailconfig_exists.exists
+
+    - name: Check if promtail binary exists
+      stat:
+        path: /opt/promtail/bin/promtail-linux-amd64
+      register: promtailbin_exists.exists
+
+    - name: download promtail binary
+      ansible.builtin.get_url:
+        url: https://github.com/grafana/loki/releases/download/v2.6.1/promtail-linux-amd64.zip
+        dest: /opt/loki/install/promtail-linux-amd64.zip
+      when: not promtailbin_exists.exists
+
+    - name: unzip promtail
+      ansible.builtin.unarchive:
+        src: /opt/loki/install/promtail-linux-amd64.zip
+        dest: /opt/promtail/bin
+        remote_src: yes
+      when: not promtailbin_exists.exists
+
+    - name: Upload systemd service
+      copy:
+        src: ../../files/promtail/promtail.service
+        dest: /etc/systemd/system/promtail.service
+
+    - name: Start promtail service
+      ansible.builtin.systemd:
+        name: promtail
+        state: started
+        enabled: yes
+ 
