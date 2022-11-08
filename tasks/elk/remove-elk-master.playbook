@@ -1,0 +1,26 @@
+- hosts: monitoring.services.ka.xcore.net
+  remote_user: root
+
+  tasks:
+    - name: ensure elasticsearch is stopped 
+      service: 
+        name: elasticsearch.service
+        enabled: no
+        state: stopped
+
+    - name: Remove Elasticsearch
+      apt:
+        pkg: elasticsearch
+        state: absent 
+
+
+    - name: Stop kibana
+      service:
+        name: kibana.service
+        enabled: no 
+        state: stopped 
+
+    - name: Remove Kibana
+      apt:
+        pkg: kibana
+        state: absent 
