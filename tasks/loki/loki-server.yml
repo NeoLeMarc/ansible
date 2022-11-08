@@ -1,0 +1,15 @@
+- hosts: monitoring.services.ka.xcore.net
+  remote_user: root
+
+  tasks:
+    - name: Add loki group
+      ansible.builtin.group:
+        name: loki
+        gid: 1001
+
+    - name: Add loki user
+      ansible.builtin.user:
+        name: loki
+        comment: Loki User
+        uid: 1001
+        group: loki
