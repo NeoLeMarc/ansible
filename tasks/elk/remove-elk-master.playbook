@@ -3,6 +3,7 @@
 
   tasks:
     - name: ensure elasticsearch is stopped 
+      ignore_errors: yes
       service: 
         name: elasticsearch.service
         enabled: no
@@ -13,8 +14,8 @@
         pkg: elasticsearch
         state: absent 
 
-
     - name: Stop kibana
+      ignore_errors: yes
       service:
         name: kibana.service
         enabled: no 
