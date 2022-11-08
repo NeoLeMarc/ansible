@@ -28,3 +28,6 @@
 
 - name: remove filebeat
   import_playbook: tasks/elk/remove-logstash-slave.playbook
+
+- name: install promtail
+  import_playbook: tasks/loki/promtail-client.yml

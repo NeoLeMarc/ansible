@@ -1,4 +1,4 @@
-- hosts: control.wlan.ka.xcore.net
+- hosts: [debian_servers, workstations]
   remote_user: root
 
   tasks:
@@ -42,7 +42,7 @@
           owner: promtail
           group: promtail
 
-    - name: Create bin directory
+    - name: Create state directory
       ansible.builtin.file:
           path: /opt/promtail/install
           state: 'directory'
@@ -66,6 +66,11 @@
       stat:
         path: /opt/promtail/bin/promtail-linux-amd64
       register: promtailbin_exists
+
+    - name: ensure unzip is present
+      apt:
+        package: unzip
+        state: present 
 
     - name: download promtail binary
       ansible.builtin.get_url:
