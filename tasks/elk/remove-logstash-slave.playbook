@@ -1,0 +1,31 @@
+# Name is missleading, we are removing logstash and switching to filebeat directly
+# logging to elastic
+- hosts: 
+  - debian_servers
+  - workstations
+  remote_user: root
+
+  tasks:
+    - name: ensure filebeat is not running
+      ignore_errors: yes
+      service: 
+        name: filebeat.service
+        enabled: no 
+        state: stopped 
+
+    - name: Remove filebeat 
+      apt:
+        pkg: filebeat 
+        state: absent 
+
+    - name: upload filebeat config
+      copy:
+        dest: /etc/filebeat/filebeat.yml
+        src: /home/marcel/filebeat.yml
+
+
+    - name: remove logstash
+      apt: 
+        pkg: logstash
+        state: absent 
+
