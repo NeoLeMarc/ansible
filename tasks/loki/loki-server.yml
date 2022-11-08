@@ -5,11 +5,70 @@
     - name: Add loki group
       ansible.builtin.group:
         name: loki
-        gid: 1001
+        gid: 10001
 
     - name: Add loki user
       ansible.builtin.user:
         name: loki
         comment: Loki User
-        uid: 1001
+        uid: 10001
         group: loki
+
+    - name: Create installation directory
+      ansible.builtin.file:
+          path: /opt/loki
+          state: 'directory'
+          mode: '0750'
+          owner: loki
+          group: loki
+
+    - name: Create config directory
+      ansible.builtin.file:
+          path: /opt/loki/etc
+          state: 'directory'
+          mode: '0750'
+          owner: loki
+          group: loki
+
+    - name: Download loki config
+      ansible.builtin.get_url:
+        url: https://raw.githubusercontent.com/grafana/loki/v2.6.1/cmd/loki/loki-local-config.yaml
+        dest: /opt/loki/etc/loki-config.yaml
+
+    - name: Download promtail config
+      ansible.builtin.get_url:
+        url: https://raw.githubusercontent.com/grafana/loki/v2.6.1/clients/cmd/promtail/promtail-docker-config.yaml
+        dest: /opt/loki/etc/promtail-config.yaml
+
+
+    - name: Install Docker Module for Python
+      pip:
+        name: docker
+
+    # docker run --name loki -d -v /opt/loki/etc:/mnt/config -p 3100:3100 grafana/loki:2.6.1 -config.file=/mnt/config/loki-config.yaml
+    - name: start loki docker container
+      community.docker.docker_container:
+        name: loki
+        debug: false
+        volumes:
+          - /opt/loki/etc:/mnt/config
+        ports:
+          - "3100:3100"
+        image: grafana/loki:2.6.1
+        env:
+          arg1: "-config.file=/mnt/config/loki-config.yaml"
+
+    # docker run --name promtail -d -v $(pwd):/mnt/config -v /var/log:/var/log --link loki grafana/promtail:2.6.1 -config.file=/mnt/config/promtail-config.yaml
+    - name: start promtail docker container
+      community.docker.docker_container:
+        name: loki
+        debug: false
+        volumes:
+          - /opt/loki/etc:/mnt/config
+          - /var/log:/var/lok
+        link:
+          - loki
+        image: grafana/promtail:2.6.1
+        env:
+          arg1: "-config.file=/mnt/config/loki-config.yaml"
+
