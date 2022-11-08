@@ -48,20 +48,25 @@
         url: https://raw.githubusercontent.com/grafana/loki/v2.6.1/cmd/loki/loki-local-config.yaml
         dest: /opt/loki/etc/loki-config.yaml
         force: no
-      when: not lokiconfig_exists.exists
+      when: not lokiconfig_exists.stat.exists
 
-    - name: Check if promtail config exists
-      stat:
-        path: /opt/loki/etc/promtail-config.yaml
-      register: promtailconfig_exists
+    - name: remove old promtail config
+      file:
+          path: /opt/loki/etc/promtail-config.yaml
+          state: absent
 
-    - name: Download promtail config
-      ansible.builtin.get_url:
-        url: https://raw.githubusercontent.com/grafana/loki/v2.6.1/clients/cmd/promtail/promtail-docker-config.yaml
-        dest: /opt/loki/etc/promtail-config.yaml
-        force: no
-      when: not promtailconfig_exists.exists
-
+        #    - name: Check if promtail config exists
+        #      stat:
+        #        path: /opt/loki/etc/promtail-config.yaml
+        #      register: promtailconfig_exists
+        #
+        #    - name: Download promtail config
+        #      ansible.builtin.get_url:
+        #        url: https://raw.githubusercontent.com/grafana/loki/v2.6.1/clients/cmd/promtail/promtail-docker-config.yaml
+        #        dest: /opt/loki/etc/promtail-config.yaml
+        #        force: no
+        #      when: not promtailconfig_exists.stat.exists
+        #
     - name: Install Docker Module for Python
       pip:
         name: docker
@@ -82,8 +87,9 @@
         restart_policy: always
 
     # docker run --name promtail -d -v $(pwd):/mnt/config -v /var/log:/var/log --link loki grafana/promtail:2.6.1 -config.file=/mnt/config/promtail-config.yaml
-    - name: start promtail docker container
+    - name: remove promtail docker container
       community.docker.docker_container:
+        state: absent # Promtail will be installed via client install
         name: promtail 
         debug: false
         volumes:
@@ -94,5 +100,5 @@
         image: grafana/promtail:2.6.1
         env:
           arg1: "-config.file=/mnt/config/loki-config.yaml"
-        restart_policy: always
+        restart_policy: no
 

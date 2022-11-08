@@ -59,25 +59,26 @@
       copy:
         src: ../../files/promtail/promtail-config.yaml
         dest: /opt/promtail/etc/promtail-config.yaml
-      when: not promtailconfig_exists.exists
+        force: yes
+          #      when: not promtailconfig_exists.stat.exists
 
     - name: Check if promtail binary exists
       stat:
         path: /opt/promtail/bin/promtail-linux-amd64
-      register: promtailbin_exists.exists
+      register: promtailbin_exists
 
     - name: download promtail binary
       ansible.builtin.get_url:
         url: https://github.com/grafana/loki/releases/download/v2.6.1/promtail-linux-amd64.zip
-        dest: /opt/loki/install/promtail-linux-amd64.zip
-      when: not promtailbin_exists.exists
+        dest: /opt/promtail/install/promtail-linux-amd64.zip
+      when: not promtailbin_exists.stat.exists
 
     - name: unzip promtail
       ansible.builtin.unarchive:
-        src: /opt/loki/install/promtail-linux-amd64.zip
+        src: /opt/promtail/install/promtail-linux-amd64.zip
         dest: /opt/promtail/bin
         remote_src: yes
-      when: not promtailbin_exists.exists
+      when: not promtailbin_exists.stat.exists
 
     - name: Upload systemd service
       copy:
@@ -87,6 +88,7 @@
     - name: Start promtail service
       ansible.builtin.systemd:
         name: promtail
-        state: started
+        state: restarted
         enabled: yes
+        daemon_reload: yes
  

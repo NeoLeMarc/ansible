@@ -5,7 +5,7 @@ After=network.target
 [Service]
 Type=simple
 User=promtail
-ExecStart=/opt/promtail/bin/promtail-linux-amd64 --config.file=/opt/promtail/etc/promtail-config.yaml --client.external-labels=hostname=$(hostname)
+ExecStart=/opt/promtail/bin/promtail-linux-amd64 --config.file=/opt/promtail/etc/promtail-config.yaml --client.external-labels=hostname=%H
 
 [Install]
 WantedBy=multi-user.target
