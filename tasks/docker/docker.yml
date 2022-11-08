@@ -1,4 +1,4 @@
-- hosts: java_development 
+- hosts: docker 
   remote_user: root
 
   tasks:
