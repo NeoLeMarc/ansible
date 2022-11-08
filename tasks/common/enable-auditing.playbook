@@ -1,0 +1,20 @@
+- hosts: ["debian_servers", "workstations"]
+  remote_user: root
+
+  tasks:
+    - name: install auditd 
+      apt:
+        package: auditd
+        state: present
+
+    - name: enable tty auditing
+      community.general.pamd:
+        name: common-session 
+        type: session
+        control: optional 
+        module_path: pam_systemd.so
+        new_control: required
+        new_type: session
+        new_module_path: pam_tty_audit.so
+        module_arguments: 'enable=*'
+        state: after
