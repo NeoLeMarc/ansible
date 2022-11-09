@@ -16,3 +16,11 @@ scrape_configs:
     labels:
       job: varlogs
       __path__: /var/log/*log
+
+- job_name: audit 
+  static_configs:
+  - targets:
+      - localhost
+    labels:
+      job: auditlogs 
+      __path__: /var/log/audit/*log
