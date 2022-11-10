@@ -50,6 +50,19 @@
           owner: promtail
           group: promtail
 
+    - name: change rsyslog to new logstyle format
+      lineinfile:
+          line:  "# $ActionFileDefaultTemplate RSYSLOG_TraditionalFileFormat"
+          regexp: "^\\$ActionFileDefaultTemplate RSYSLOG_TraditionalFileFormat" 
+          path: /etc/rsyslog.conf
+          state: present
+
+    - name: restart rsyslog 
+      ansible.builtin.systemd:
+        name: rsyslog 
+        state: restarted
+        enabled: yes
+
     - name: Check if promtail config exists
       stat:
         path: /opt/promtail/etc/promtail-config.yaml
