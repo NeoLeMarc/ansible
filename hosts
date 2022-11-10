@@ -10,6 +10,7 @@ cassandra
 mysql
 outpost01
 taurus
+miranda
 
 [debian_servers:vars]
 ansible_python_interpreter="/usr/bin/python3"
@@ -44,6 +45,9 @@ mysql01.kubernetes.ka.xcore.net
 
 [polarstern]
 polarstern.lan.ka.xcore.net
+
+[miranda]
+miranda.lan.ka.xcore.net
 
 [kubernetes_master:children]
 kubemaster01
