@@ -18,6 +18,12 @@
           - adm
           - root
 
+    - name: add monitoring to hosts 
+      lineinfile:
+        path: /etc/hosts
+        regexp: "10.10.2.2"
+        line: "10.10.2.2  monitoring.services.ka.xcore.net  monitoring"
+
     - name: Create installation directory
       ansible.builtin.file:
           path: /opt/promtail
