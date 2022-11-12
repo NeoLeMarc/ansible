@@ -82,8 +82,7 @@
         ports:
           - "3100:3100"
         image: grafana/loki:2.6.1
-        env:
-          arg1: "-config.file=/mnt/config/loki-config.yaml"
+        entrypoint: "/usr/bin/loki -config.file=/mnt/config/loki-config.yaml"
         restart_policy: always
 
     # docker run --name promtail -d -v $(pwd):/mnt/config -v /var/log:/var/log --link loki grafana/promtail:2.6.1 -config.file=/mnt/config/promtail-config.yaml
