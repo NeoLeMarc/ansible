@@ -1,4 +1,4 @@
-- hosts: atlassian.services.xcore.net
+- hosts: atlassian.services.ka.xcore.net
   remote_user: root
   tasks:
   - name: upload confluence binary

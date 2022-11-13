@@ -1,4 +1,4 @@
-- hosts: hailstorm.10glan.ka.xcore.net
+- hosts: debian_servers
   remote_user: marcel
   become: yes
   become_user: root

@@ -11,6 +11,7 @@ mysql
 outpost01
 taurus
 miranda
+raspberrypi
 
 [debian_servers:vars]
 ansible_python_interpreter="/usr/bin/python3"
@@ -45,6 +46,9 @@ mysql01.kubernetes.ka.xcore.net
 
 [polarstern]
 polarstern.lan.ka.xcore.net
+
+[raspberrypi]
+10.10.3.161
 
 [miranda]
 miranda.lan.ka.xcore.net
