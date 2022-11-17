@@ -117,7 +117,7 @@ taurus.10glan.ka.xcore.net
 outpost01.lan.ka.xcore.net
 
 [jupiter]
-jupiter.lan.ka.xcore.net
+jupiter.10glan.ka.xcore.net
 
 [py3_hosts:children]
 galaxy
