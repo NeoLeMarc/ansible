@@ -1,0 +1,7 @@
+- hosts: workstations
+  remote_user: root
+  roles:
+    - role: baseline
+    - role: unixuser
+      unix_username: marcel
+      unix_user_gecos: Marcel Noe
