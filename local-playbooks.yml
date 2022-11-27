@@ -33,4 +33,4 @@
   import_playbook: tasks/loki/promtail-client.yml
 
 - name: baseline
-  import_playbook: tasks/common/workstation-baseline.yml
+  import_playbook: tasks/common/workstations-baseline.yml
