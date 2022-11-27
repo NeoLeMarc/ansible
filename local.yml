@@ -36,6 +36,10 @@
           value: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
           cron_file: ansible_pull
 
+      - name: make ansible-collection-xcore a safe directory
+        shell:
+          cmd: git config --global --add safe.directory /opt/ansible/ansible-collection-xcore
+
       - name: Download required roles
         git: repo=https://github.com/NeoLeMarc/ansible-collection-xcore version=master dest=/opt/ansible/ansible-collection-xcore
 
@@ -80,11 +84,7 @@
             group: root 
             state: link
 
-      - name: make ansible-collection-xcore a safe directory
-        shell:
-          cmd: git config --global --add safe.directory /opt/ansible/ansible-collection-xcore
-
-      - name: install dependencies
+     - name: install dependencies
         local_action: command ansible-galaxy install -r requirements.yml --ignore-errors
 
       - name: install dependencies for xcore-collection
