@@ -84,7 +84,7 @@
             group: root 
             state: link
 
-     - name: install dependencies
+      - name: install dependencies
         local_action: command ansible-galaxy install -r requirements.yml --ignore-errors
 
       - name: install dependencies for xcore-collection
