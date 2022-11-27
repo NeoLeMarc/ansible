@@ -41,7 +41,7 @@
           cmd: git config --global --add safe.directory /opt/ansible/ansible-collection-xcore
 
       - name: Download required roles
-        git: repo=https://github.com/NeoLeMarc/ansible-collection-xcore version=master dest=/opt/ansible/ansible-collection-xcore
+        git: repo=https://github.com/NeoLeMarc/ansible-collection-xcore version=master dest=/opt/ansible/ansible-collection-xcore update=yes
 
       - name: roles directory
         file:
