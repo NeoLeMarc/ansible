@@ -80,6 +80,10 @@
             group: root 
             state: link
 
+      - name: make ansible-collection-xcore a safe directory
+        shell:
+          cmd: git config --global --add safe.directory /opt/ansible/ansible-collection-xcore
+
       - name: install dependencies
         local_action: command ansible-galaxy install -r requirements.yml --ignore-errors
 
