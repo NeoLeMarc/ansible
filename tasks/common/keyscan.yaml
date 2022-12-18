@@ -1,0 +1,6 @@
+- hosts: all
+  gather_facts: no
+  tasks:
+  - name: Write the new instance host key to known hosts
+    connection: local
+    shell: "ssh-keyscan -H {{ inventory_hostname }} >> ~/.ssh/known_hosts"
