@@ -12,6 +12,7 @@ outpost01
 taurus
 miranda
 raspberrypi
+dockerserver
 
 [debian_servers:vars]
 ansible_python_interpreter="/usr/bin/python3"
@@ -100,6 +101,7 @@ vcs.services.ka.xcore.net
 nameserver.services.ka.xcore.net
 vpn.services.ka.xcore.net
 monitoring.services.ka.xcore.net
+dockerserver.services.ka.xcore.net
 
 [ns2]
 ns2.noetech.net
@@ -160,6 +162,7 @@ rubble
 hailstorm
 iotserver01
 monitoring
+dockerserver
 
 
 [raspberry_pi:children]
@@ -216,3 +219,6 @@ iotserver01.iot.ka.xcore.net
 
 [monitoring]
 monitoring.services.ka.xcore.net
+
+[dockerserver]
+dockerserver.services.ka.xcore.net
