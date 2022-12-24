@@ -1,0 +1,26 @@
+- hosts: dockerserver.services.ka.xcore.net
+  remote_user: root
+
+  tasks:
+    - name: Create installation directory
+      ansible.builtin.file:
+          path: /opt/vaultwarden
+          state: 'directory'
+          mode: '0750'
+
+    - name: Create data directory
+      ansible.builtin.file:
+          path: /opt/vaultwarden/data
+          state: 'directory'
+          mode: '0750'
+
+    - name: Start vaultwarden server
+      community.docker.container:
+        name: vaultwarden
+        debug: false
+        volumes:
+          - /opt/vaultwarden/data:/data
+        image: vaultwarden/server:latest
+        ports:
+          - "8080:80"
+        restart_policy: always
