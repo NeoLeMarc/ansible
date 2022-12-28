@@ -1,0 +1,11 @@
+- hosts: dockerserver 
+  remote_user: root
+  tasks:
+  - name: create vaultwarden.tar
+    shell: tar -c /opt/vaultwarden -f /vaultwarden.tar 
+
+  - name: fetch vaultwarden.tar
+    fetch: src=/vaultwarden.tar dest=~/infrastructure/{{ansible_hostname}}/vaultwarden-{{ ansible_hostname }}.tar flat=yes
+
+  - name: cleanup vaultwarden.tar
+    file: path=/vaultwarden.tar state=absent 
