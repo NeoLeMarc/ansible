@@ -5,6 +5,7 @@ backup_services
 galaxy
 polarstern
 ns2
+wormhole01
 jupiter
 cassandra
 mysql
@@ -106,6 +107,9 @@ dockerserver.services.ka.xcore.net
 [ns2]
 ns2.noetech.net
 
+[wormhole01]
+wormhole01.xcore.net
+
 [hailstorm]
 hailstorm.10glan.ka.xcore.net 
 
@@ -163,6 +167,7 @@ hailstorm
 iotserver01
 monitoring
 dockerserver
+taurus
 
 
 [raspberry_pi:children]
@@ -183,6 +188,7 @@ iotserver01
 ns2
 mx
 archive
+wormhole01
 
 [mx]
 mx.services.ka.xcore.net
