@@ -93,7 +93,7 @@
 
     - name: download promtail binary
       ansible.builtin.get_url:
-        url: https://github.com/grafana/loki/releases/download/v2.6.1/promtail-linux-amd64.zip
+        url: https://github.com/grafana/loki/releases/download/v2.7.6/promtail-linux-amd64.zip
         dest: /opt/promtail/install/promtail-linux-amd64.zip
       when: not promtailbin_exists.stat.exists
 

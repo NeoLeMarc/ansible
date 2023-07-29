@@ -226,5 +226,9 @@ iotserver01.iot.ka.xcore.net
 [monitoring]
 monitoring.services.ka.xcore.net
 
+[monitoring:vars]
+ansible_python_interpreter=/root/venv/ansible/bin/python3
+
+
 [dockerserver]
 dockerserver.services.ka.xcore.net
