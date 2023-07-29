@@ -85,6 +85,13 @@
       stat:
         path: /opt/promtail/bin/promtail-linux-amd64
       register: promtailbin_exists
+      when: not 'wormhole01' in inventory_hostname
+
+    - name: Check if promtail binary exists ARM64
+      stat:
+        path: /opt/promtail/bin/promtail-linux-arm64
+      register: promtailbin_exists
+      when: "'wormhole01' in inventory_hostname"
 
     - name: ensure unzip is present
       apt:
@@ -95,19 +102,39 @@
       ansible.builtin.get_url:
         url: https://github.com/grafana/loki/releases/download/v2.7.6/promtail-linux-amd64.zip
         dest: /opt/promtail/install/promtail-linux-amd64.zip
-      when: not promtailbin_exists.stat.exists
+      when: not promtailbin_exists.stat.exists and not 'wormhole01' in inventory_hostname
+
+    - name: download promtail binary for ARM64
+      ansible.builtin.get_url:
+        url: https://github.com/grafana/loki/releases/download/v2.7.6/promtail-linux-arm64.zip
+        dest: /opt/promtail/install/promtail-linux-arm64.zip
+      when: not promtailbin_exists.stat.exists and 'wormhole01' in inventory_hostname
 
     - name: unzip promtail
       ansible.builtin.unarchive:
         src: /opt/promtail/install/promtail-linux-amd64.zip
         dest: /opt/promtail/bin
         remote_src: yes
-      when: not promtailbin_exists.stat.exists
+      when: not promtailbin_exists.stat.exists and not 'wormhole01' in inventory_hostname
+
+    - name: unzip promtail for ARM64
+      ansible.builtin.unarchive:
+        src: /opt/promtail/install/promtail-linux-arm64.zip
+        dest: /opt/promtail/bin
+        remote_src: yes
+      when: not promtailbin_exists.stat.exists and 'wormhole01' in inventory_hostname
 
     - name: Upload systemd service
       copy:
         src: ../../files/promtail/promtail.service
         dest: /etc/systemd/system/promtail.service
+      when: "'wormhole01' not in inventory_hostname"
+
+    - name: Upload systemd service ARM64
+      copy:
+        src: ../../files/promtail/promtailARM64.service
+        dest: /etc/systemd/system/promtail.service
+      when: "'wormhole01' in inventory_hostname"
 
     - name: Start promtail service
       ansible.builtin.systemd:
