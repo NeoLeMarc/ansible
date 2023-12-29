@@ -169,6 +169,7 @@ iotserver01
 monitoring
 dockerserver
 taurus
+ipa
 
 
 [raspberry_pi:children]
