@@ -6,11 +6,68 @@
   - name: Clone freeIPA git repo
     git: repo=https://github.com/freeipa/freeipa-container.git dest=/root/freeipa-container
 
+
+  - name: create freeipa group
+    group:
+      name: freeipa
+      gid: 10002
+
+  - name: create freeipa user
+    user:
+      name: freeipa
+      comment: freeIPA user
+      uid: 10002
+      group: freeipa
+
+
   - name: build FreeIPA docker image
     community.docker.docker_image:
-      name: freeipa-almalinux9
+      name: freeipa-centos8-stream
       build:
         path: /root/freeipa-container/
-        dockerfile: Dockerfile.almalinux-9
+        dockerfile: Dockerfile.centos-8-stream
       source: build
       state: present
+
+  - name: Create installation directory
+    ansible.builtin.file:
+      path: /opt/freeipa
+      state: 'directory'
+      mode: '0750'
+      owner: freeipa
+      group: freeipa
+
+  - name: Create data directory
+    ansible.builtin.file:
+      path: /opt/freeipa/data
+      state: 'directory'
+      mode: '0750'
+      owner: freeipa
+      group: freeipa
+
+  - name: Enable userns-remap
+    lineinfile:
+      path: /etc/docker/daemon.json
+      line: '{ "userns-remap": "freeipa" }'
+      state: present
+      create: yes
+    notify: Restart docker
+    
+  # FreeIPA needs to be manually started for installation:
+  # docker run --name freeipa-server -ti -h ipa.10glan.ka.xcore.net  --sysctl net.ipv6.conf.all.disable_ipv6=0  -v /opt/freeipa/data:/data:Z    freeipa-centos-8-stream
+        #  - name: Start FreeIPA server
+        #community.docker.docker_container:
+        #name: freeipa
+        #debug: false
+        #volumes:
+        #- /opt/freeipa/data:/data:Z
+        #- /sys/fs/cgroup:/sys/fs/cgroup:ro
+        #image: freeipa-almalinux9
+        #restart_policy: always
+
+  handlers:
+    - name: Restart docker
+      service:
+        name: docker
+        daemon_reload: yes
+        state: restarted

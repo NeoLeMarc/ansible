@@ -1,0 +1,15 @@
+- hosts: 
+  - ipa.10glan.ka.xcore.net
+  remote_user: root
+
+  tasks:
+   
+  - name: Start FreeIPA server
+    ansible.builtin.command:
+      cmd: /usr/bin/docker run --name freeipa-server -h ipa.10glan.ka.xcore.net --sysctl net.ipv6.conf.all.disable_ipv6=0 -v /opt/freeipa/data:/data:Z -p 53:53/udp -p 53:53 -p 80:80 -p 443:443 -p 389:389 -p 636:636 -p 88:88 -p 464:464 -p 88:88/udp -p 464:464/udp -p 123:123/udp  --restart always -d freeipa-centos-8-stream
+  handlers:
+    - name: Restart docker
+      service:
+        name: docker
+        daemon_reload: yes
+        state: restarted
