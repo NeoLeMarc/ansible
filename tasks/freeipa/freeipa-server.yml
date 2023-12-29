@@ -1,0 +1,16 @@
+- hosts: 
+  - ipa.10glan.ka.xcore.net
+  remote_user: root
+
+  tasks:
+  - name: Clone freeIPA git repo
+    git: repo=https://github.com/freeipa/freeipa-container.git dest=/root/freeipa-container
+
+  - name: build FreeIPA docker image
+    community.docker.docker_image:
+      name: freeipa-almalinux9
+      build:
+        path: /root/freeipa-container/
+        dockerfile: Dockerfile.almalinux-9
+      source: build
+      state: present
