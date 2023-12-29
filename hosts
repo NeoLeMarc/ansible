@@ -15,6 +15,8 @@ miranda
 raspberrypi
 dockerserver
 ipa
+ipa-replica
+ipa-test
 
 [debian_servers:vars]
 ansible_python_interpreter="/usr/bin/python3"
@@ -170,6 +172,7 @@ monitoring
 dockerserver
 taurus
 ipa
+ipa-replica
 
 
 [raspberry_pi:children]
@@ -237,3 +240,9 @@ dockerserver.services.ka.xcore.net
 
 [ipa]
 ipa.10glan.ka.xcore.net
+
+[ipa-replica]
+ipa-replica.10glan.ka.xcore.net
+
+[ipa-test]
+ipa-test.10glan.ka.xcore.net
