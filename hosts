@@ -14,6 +14,7 @@ taurus
 miranda
 raspberrypi
 dockerserver
+ipa
 
 [debian_servers:vars]
 ansible_python_interpreter="/usr/bin/python3"
@@ -232,3 +233,6 @@ ansible_python_interpreter=/root/venv/ansible/bin/python3
 
 [dockerserver]
 dockerserver.services.ka.xcore.net
+
+[ipa]
+ipa.10glan.ka.xcore.net
