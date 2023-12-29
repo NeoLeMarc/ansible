@@ -1,5 +1,6 @@
 - hosts: 
   - ipa.10glan.ka.xcore.net
+  - ipa-replica.10glan.ka.xcore.net
   remote_user: root
 
   tasks:
@@ -22,7 +23,7 @@
 
   - name: build FreeIPA docker image
     community.docker.docker_image:
-      name: freeipa-centos8-stream
+      name: freeipa-centos-8-stream
       build:
         path: /root/freeipa-container/
         dockerfile: Dockerfile.centos-8-stream
@@ -54,7 +55,13 @@
     notify: Restart docker
     
   # FreeIPA needs to be manually started for installation:
+  #
+  # Server:
   # docker run --name freeipa-server -ti -h ipa.10glan.ka.xcore.net  --sysctl net.ipv6.conf.all.disable_ipv6=0  -v /opt/freeipa/data:/data:Z    freeipa-centos-8-stream
+  #
+  # Replica
+  # docker run --name freeipa-replica -ti -h ipa-replica.10glan.ka.xcore.net  --sysctl net.ipv6.conf.all.disable_ipv6=0  -v /opt/freeipa/data:/data:Z freeipa-centos-8-stream ipa-replica-install
+
         #  - name: Start FreeIPA server
         #community.docker.docker_container:
         #name: freeipa
