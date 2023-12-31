@@ -60,7 +60,7 @@
   # docker run --name freeipa-server -ti -h ipa.10glan.ka.xcore.net  --sysctl net.ipv6.conf.all.disable_ipv6=0  -v /opt/freeipa/data:/data:Z    freeipa-centos-8-stream
   #
   # Replica
-  # docker run --name freeipa-replica -ti -h ipa-replica.10glan.ka.xcore.net  --sysctl net.ipv6.conf.all.disable_ipv6=0  -v /opt/freeipa/data:/data:Z freeipa-centos-8-stream ipa-replica-install
+  # docker run --name freeipa-replica -ti -h ipa-replica.10glan.ka.xcore.net --sysctl net.ipv6.conf.all.disable_ipv6=0 -v /opt/freeipa/data:/data:Z -p 53:53/udp -p 53:53 -p 80:80 -p 443:443 -p 389:389 -p 636:636 -p 88:88 -p 464:464 -p 88:88/udp -p 464:464/udp -p 123:123/udp freeipa-centos-8-stream ipa-replica-install -p test123456 --server ipa.10glan.ka.xcore.net --domain 10GLAN.KA.XCORE.NET --principal admin
 
         #  - name: Start FreeIPA server
         #community.docker.docker_container:
