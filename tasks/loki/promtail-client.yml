@@ -56,6 +56,11 @@
           owner: promtail
           group: promtail
 
+    - name: install rsyslog debian package
+      apt:
+        name: rsyslog
+        state: present
+
     - name: change rsyslog to new logstyle format
       lineinfile:
           line:  "# $ActionFileDefaultTemplate RSYSLOG_TraditionalFileFormat"
@@ -90,7 +95,7 @@
     - name: Check if promtail binary exists ARM64
       stat:
         path: /opt/promtail/bin/promtail-linux-arm64
-      register: promtailbin_exists
+      register: promtailbin64_exists
       when: "'wormhole01' in inventory_hostname"
 
     - name: ensure unzip is present
@@ -98,31 +103,35 @@
         package: unzip
         state: present 
 
+    - name: Debug output
+      ansible.builtin.debug:
+        msg: "promtailbin_exists: {{ promtailbin_exists }}"
+
     - name: download promtail binary
       ansible.builtin.get_url:
         url: https://github.com/grafana/loki/releases/download/v2.7.6/promtail-linux-amd64.zip
         dest: /opt/promtail/install/promtail-linux-amd64.zip
-      when: not promtailbin_exists.stat.exists and not 'wormhole01' in inventory_hostname
+      when: not 'wormhole01' in inventory_hostname and not promtailbin_exists.stat.exists
 
     - name: download promtail binary for ARM64
       ansible.builtin.get_url:
         url: https://github.com/grafana/loki/releases/download/v2.7.6/promtail-linux-arm64.zip
         dest: /opt/promtail/install/promtail-linux-arm64.zip
-      when: not promtailbin_exists.stat.exists and 'wormhole01' in inventory_hostname
+      when: "'wormhole01' in inventory_hostname and not promtailbin64_exists.stat.exists"
 
     - name: unzip promtail
       ansible.builtin.unarchive:
         src: /opt/promtail/install/promtail-linux-amd64.zip
         dest: /opt/promtail/bin
         remote_src: yes
-      when: not promtailbin_exists.stat.exists and not 'wormhole01' in inventory_hostname
+      when: not 'wormhole01' in inventory_hostname and not promtailbin_exists.stat.exists
 
     - name: unzip promtail for ARM64
       ansible.builtin.unarchive:
         src: /opt/promtail/install/promtail-linux-arm64.zip
         dest: /opt/promtail/bin
         remote_src: yes
-      when: not promtailbin_exists.stat.exists and 'wormhole01' in inventory_hostname
+      when: "'wormhole01' in inventory_hostname and not promtailbin64_exists.stat.exists"
 
     - name: Upload systemd service
       copy:
