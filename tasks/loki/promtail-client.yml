@@ -5,13 +5,13 @@
     - name: Add promtail group
       ansible.builtin.group:
         name: promtail
-        gid: 10002
+        gid: 10003
 
     - name: Add promtail user
       ansible.builtin.user:
         name: promtail 
         comment: Promtail 
-        uid: 10002
+        uid: 10003
         group: promtail
         system: true
         groups: 
