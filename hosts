@@ -248,3 +248,9 @@ ipa-replica.10glan.ka.xcore.net
 
 [ipa-test]
 ipa-test.10glan.ka.xcore.net
+
+[ipa-dc1]
+ipa-dc1.10glan.ka.xcore.net
+
+[ipa-dc2]
+ipa-dc2.10glan.ka.xcore.net
