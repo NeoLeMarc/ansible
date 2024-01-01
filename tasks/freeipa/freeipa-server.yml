@@ -57,7 +57,7 @@
   - name: modify subuid to allow user ids up to 5000000 needed for active directory
     lineinfile:
       path: /etc/subuid
-      line: freeipa:165536:5000000
+      line: freeipa:165536:859200000
       state: present
       create: yes
     notify: Restart docker
@@ -65,7 +65,7 @@
   - name: modify subgid to allow user ids up to 5000000 needed for active directory
     lineinfile:
       path: /etc/subgid
-      line: freeipa:165536:5000000
+      line: freeipa:165536:859200000
       state: present
       create: yes
     notify: Restart docker
