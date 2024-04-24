@@ -240,6 +240,9 @@ ansible_python_interpreter=/root/venv/ansible/bin/python3
 [dockerserver]
 dockerserver.services.ka.xcore.net
 
+[dockerserver:vars]
+ansible_python_interpreter=/root/venv/ansible/bin/python3
+
 [ipa]
 ipa.10glan.ka.xcore.net
 
