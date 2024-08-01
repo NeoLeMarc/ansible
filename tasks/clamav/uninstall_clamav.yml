@@ -1,0 +1,25 @@
+- hosts: [debian_servers, workstations]
+  remote_user: root
+
+  tasks:
+    - name: remove clamav 
+      apt:
+        name: clamav 
+        state: absent 
+
+    - name: remove clamav-base
+      apt:
+        name: clamav-base
+        state: absent 
+
+    - name: remove clamav-daemon
+      apt:
+        name: clamav-daemon
+        state: absent 
+
+    - name: remove clamav-freshclam
+      apt:
+        name: clamav-freshclam
+        state: absent 
+
+
